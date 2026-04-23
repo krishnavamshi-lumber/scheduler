@@ -1,0 +1,125 @@
+2026-04-21 18:30:02 [INFO] ============================================================
+2026-04-21 18:30:02 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-21 18:30:02 [INFO] Time    : 2026-04-22 00:00:02 IST
+2026-04-21 18:30:02 [INFO] Company : Wednesday
+2026-04-21 18:30:02 [INFO] ============================================================
+2026-04-21 18:30:02 [INFO] Fetching Excel from Google Drive...
+2026-04-21 18:30:07 [INFO] Excel saved: wednesday_input.xlsx (12,845 bytes)
+2026-04-21 18:30:07 [INFO] Starting Phase 1 automation...
+2026-04-21 18:30:07 [INFO] Credentials written for Wednesday (wednesday@lumberfi.com)
+2026-04-21 18:30:07 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-21 18:31:16 [INFO]   ============================= test session starts ==============================
+2026-04-21 18:31:16 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-21 18:31:16 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-21 18:31:16 [INFO]   configfile: pytest.ini
+2026-04-21 18:31:16 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-21 18:31:16 [INFO]   timeout: 1800.0s
+2026-04-21 18:31:16 [INFO]   timeout method: signal
+2026-04-21 18:31:16 [INFO]   timeout func_only: False
+2026-04-21 18:31:16 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   [INFO] Loaded 4 unique user(s)
+2026-04-21 18:31:16 [INFO]   [INFO] Date range: 2026-04-15 to 2026-04-21
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-21 18:31:16 [INFO]   [INFO] Credentials loaded
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Phase 1 — initialization complete
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   collected 1 item
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 1: Authentication
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   ✅ Loaded .env file successfully
+2026-04-21 18:31:16 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-21 18:31:16 [INFO]   🔄 Authentication attempt 1/1
+2026-04-21 18:31:16 [INFO]   📧 Using email: wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   📸 Screenshot taken before authentication
+2026-04-21 18:31:16 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-21 18:31:16 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-21 18:31:16 [INFO]   ✅ Login page fully loaded
+2026-04-21 18:31:16 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-21 18:31:16 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-21 18:31:16 [INFO]   📧 Filling email field...
+2026-04-21 18:31:16 [INFO]   ✅ Email filled: wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   🔒 Filling password field...
+2026-04-21 18:31:16 [INFO]   ✅ Password filled
+2026-04-21 18:31:16 [INFO]   🔘 Clicking Sign In button...
+2026-04-21 18:31:16 [INFO]   ✅ Sign In button clicked
+2026-04-21 18:31:16 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-21 18:31:16 [INFO]   🔍 Verifying successful authentication...
+2026-04-21 18:31:16 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-21 18:31:16 [INFO]   🎉 Authentication completed successfully!
+2026-04-21 18:31:16 [INFO]   [OK] Authentication completed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 2: Navigate to Timesheets Page
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   Navigating → Time → Timesheets
+2026-04-21 18:31:16 [INFO]   ✔ Time menu opened
+2026-04-21 18:31:16 [INFO]   ✔ Timesheet option clicked
+2026-04-21 18:31:16 [INFO]   ✔ "Timesheets" header visible
+2026-04-21 18:31:16 [INFO]   [OK] Navigated to Timesheets page
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 3: Open Upload Modal
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Upload modal opened
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 4: Upload Excel File
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]      File: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   [OK] File attached to input
+2026-04-21 18:31:16 [INFO]   [OK] Clicked upload-next-button — file submitted
+2026-04-21 18:31:16 [INFO]   [OK] File upload completed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [OK] Closed upload modal
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 5: Navigate to the Target Week
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]      Target date range: 2026-04-15 to 2026-04-21
+2026-04-21 18:31:16 [INFO]      [INFO] Navigating to week containing: 2026-04-15
+2026-04-21 18:31:16 [INFO]      [DEBUG] Displayed week: 2026-04-15 to 2026-04-21 | target: 2026-04-15
+2026-04-21 18:31:16 [INFO]      [INFO] Correct week is already displayed
+2026-04-21 18:31:16 [INFO]   [OK] Correct week displayed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 6: Bulk Approve All Users
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Selected all users via header checkbox
+2026-04-21 18:31:16 [INFO]   [OK] Clicked Approve All
+2026-04-21 18:31:16 [INFO]   [OK] Bulk approval processed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 7: Push to Payroll
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Payroll menu opened
+2026-04-21 18:31:16 [INFO]   [OK] Clicked Push to Payroll
+2026-04-21 18:31:16 [INFO]   [OK] Navigated to payroll overview page
+2026-04-21 18:31:16 [INFO]   [OK] Waited 10 seconds on payroll overview
+2026-04-21 18:31:16 [INFO]   [INFO] Job written to jobs.json  run_id=429de543  username=wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   PHASE 1 COMPLETE
+2026-04-21 18:31:16 [INFO]     run_id           : 429de543
+2026-04-21 18:31:16 [INFO]     username         : wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]     pay_period_start : 2026-04-15
+2026-04-21 18:31:16 [INFO]     pay_period_end   : 2026-04-21
+2026-04-21 18:31:16 [INFO]     timesheet_file   : timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]     Run Phase 2 after the payroll overview is ready (usually 4-5 hrs).
+2026-04-21 18:31:16 [INFO]     Set PAYROLL_RUN_ID=429de543 to skip the interactive menu.
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   .
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   ========================= 1 passed in 68.34s (0:01:08) =========================
+2026-04-21 18:31:16 [INFO] Phase 1 PASSED — run_id: 429de543

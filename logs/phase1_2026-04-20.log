@@ -1,0 +1,201 @@
+2026-04-20 04:45:07 [INFO] ============================================================
+2026-04-20 04:45:07 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-20 04:45:07 [INFO] Time    : 2026-04-20 10:15:07 IST
+2026-04-20 04:45:07 [INFO] Company : Monday
+2026-04-20 04:45:07 [INFO] ============================================================
+2026-04-20 04:45:07 [INFO] Fetching Excel from Google Drive...
+2026-04-20 04:45:11 [INFO] Excel saved: monday_input.xlsx (15,123 bytes)
+2026-04-20 04:45:11 [INFO] Starting Phase 1 automation...
+2026-04-20 04:45:11 [INFO] Credentials written for Monday (molly.muller@lumberfi.com)
+2026-04-20 04:45:11 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-20 04:45:39 [INFO]   ============================= test session starts ==============================
+2026-04-20 04:45:39 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-20 04:45:39 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-20 04:45:39 [INFO]   configfile: pytest.ini
+2026-04-20 04:45:39 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-20 04:45:39 [INFO]   timeout: 1800.0s
+2026-04-20 04:45:39 [INFO]   timeout method: signal
+2026-04-20 04:45:39 [INFO]   timeout func_only: False
+2026-04-20 04:45:39 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-20 04:45:39 [INFO]   [INFO] Loaded 23 unique user(s)
+2026-04-20 04:45:39 [INFO]   [INFO] Date range: 2026-04-20 to 2026-04-26
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-20 04:45:39 [INFO]   [INFO] Credentials loaded
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   Phase 1 — initialization complete
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   collected 1 item
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-20 04:45:39 [INFO]   ================================================================================
+2026-04-20 04:45:39 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-20 04:45:39 [INFO]   ================================================================================
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   Step 1: Authentication
+2026-04-20 04:45:39 [INFO]   ----------------------------------------
+2026-04-20 04:45:39 [INFO]   ✅ Loaded .env file successfully
+2026-04-20 04:45:39 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-20 04:45:39 [INFO]   🔄 Authentication attempt 1/1
+2026-04-20 04:45:39 [INFO]   📧 Using email: molly.muller@lumberfi.com
+2026-04-20 04:45:39 [INFO]   📸 Screenshot taken before authentication
+2026-04-20 04:45:39 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-20 04:45:39 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-20 04:45:39 [INFO]   ✅ Login page fully loaded
+2026-04-20 04:45:39 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-20 04:45:39 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-20 04:45:39 [INFO]   📧 Filling email field...
+2026-04-20 04:45:39 [INFO]   ✅ Email filled: molly.muller@lumberfi.com
+2026-04-20 04:45:39 [INFO]   🔒 Filling password field...
+2026-04-20 04:45:39 [INFO]   ❌ Authentication attempt 1 failed: Locator.wait_for: Timeout 10000ms exceeded.
+2026-04-20 04:45:39 [INFO]   Call log:
+2026-04-20 04:45:39 [INFO]     - waiting for get_by_role("textbox", name="Password") to be visible
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   F
+2026-04-20 04:45:39 [INFO]   
+2026-04-20 04:45:39 [INFO]   =================================== FAILURES ===================================
+2026-04-20 04:45:39 [INFO]   _________ TestUploadAndPush.test_upload_and_push_to_payroll[chromium] __________
+2026-04-20 04:45:39 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py:160: in test_upload_and_push_to_payroll
+2026-04-20 04:45:39 [INFO]       BaseTest(page).v3_perform_authentication(
+2026-04-20 04:45:39 [INFO]   utils/base/base_test.py:251: in v3_perform_authentication
+2026-04-20 04:45:39 [INFO]       raise RuntimeError(f"Authentication setup failed after {max_retries} attempts: {err_msg}")
+2026-04-20 04:45:39 [INFO]   E   RuntimeError: Authentication setup failed after 1 attempts: Locator.wait_for: Timeout 10000ms exceeded.
+2026-04-20 04:45:39 [INFO]   E   Call log:
+2026-04-20 04:45:39 [INFO]   E     - waiting for get_by_role("textbox", name="Password") to be visible
+2026-04-20 04:45:39 [INFO]   =========================== short test summary info ============================
+2026-04-20 04:45:39 [INFO]   FAILED tests/e2e/timesheets/phase1/test_upload_and_push.py::TestUploadAndPush::test_upload_and_push_to_payroll[chromium]
+2026-04-20 04:45:39 [INFO]   ============================== 1 failed in 27.67s ==============================
+2026-04-20 04:45:39 [ERROR] Phase 1 FAILED
+2026-04-20 04:45:40 [ERROR] Slack message failed: The request to the Slack API failed. (url: https://slack.com/api/chat.postMessage)
+The server responded with: {'ok': False, 'error': 'invalid_auth'}
+2026-04-20 04:45:40 [ERROR] Slack file upload failed: The request to the Slack API failed. (url: https://slack.com/api/files.getUploadURLExternal)
+The server responded with: {'ok': False, 'error': 'invalid_auth'}
+2026-04-20 05:41:37 [INFO] ============================================================
+2026-04-20 05:41:37 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-20 05:41:37 [INFO] Time    : 2026-04-20 11:11:37 IST
+2026-04-20 05:41:37 [INFO] Company : Monday
+2026-04-20 05:41:37 [INFO] ============================================================
+2026-04-20 05:41:37 [INFO] Fetching Excel from Google Drive...
+2026-04-20 05:41:41 [INFO] Excel saved: monday_input.xlsx (15,123 bytes)
+2026-04-20 05:41:41 [INFO] Starting Phase 1 automation...
+2026-04-20 05:41:41 [INFO] Credentials written for Monday (molly.muller@lumberfi.com)
+2026-04-20 05:41:41 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-20 05:42:50 [INFO]   ============================= test session starts ==============================
+2026-04-20 05:42:50 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-20 05:42:50 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-20 05:42:50 [INFO]   configfile: pytest.ini
+2026-04-20 05:42:50 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-20 05:42:50 [INFO]   timeout: 1800.0s
+2026-04-20 05:42:50 [INFO]   timeout method: signal
+2026-04-20 05:42:50 [INFO]   timeout func_only: False
+2026-04-20 05:42:50 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-20 05:42:50 [INFO]   [INFO] Loaded 23 unique user(s)
+2026-04-20 05:42:50 [INFO]   [INFO] Date range: 2026-04-20 to 2026-04-26
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-20 05:42:50 [INFO]   [INFO] Credentials loaded
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Phase 1 — initialization complete
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   collected 1 item
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-20 05:42:50 [INFO]   ================================================================================
+2026-04-20 05:42:50 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-20 05:42:50 [INFO]   ================================================================================
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 1: Authentication
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]   ✅ Loaded .env file successfully
+2026-04-20 05:42:50 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-20 05:42:50 [INFO]   🔄 Authentication attempt 1/1
+2026-04-20 05:42:50 [INFO]   📧 Using email: molly.muller@lumberfi.com
+2026-04-20 05:42:50 [INFO]   📸 Screenshot taken before authentication
+2026-04-20 05:42:50 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-20 05:42:50 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-20 05:42:50 [INFO]   ✅ Login page fully loaded
+2026-04-20 05:42:50 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-20 05:42:50 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-20 05:42:50 [INFO]   📧 Filling email field...
+2026-04-20 05:42:50 [INFO]   ✅ Email filled: molly.muller@lumberfi.com
+2026-04-20 05:42:50 [INFO]   🔒 Filling password field...
+2026-04-20 05:42:50 [INFO]   ✅ Password filled
+2026-04-20 05:42:50 [INFO]   🔘 Clicking Sign In button...
+2026-04-20 05:42:50 [INFO]   ✅ Sign In button clicked
+2026-04-20 05:42:50 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-20 05:42:50 [INFO]   🔍 Verifying successful authentication...
+2026-04-20 05:42:50 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-20 05:42:50 [INFO]   🎉 Authentication completed successfully!
+2026-04-20 05:42:50 [INFO]   [OK] Authentication completed
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 2: Navigate to Timesheets Page
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]   Navigating → Time → Timesheets
+2026-04-20 05:42:50 [INFO]   ✔ Time menu opened
+2026-04-20 05:42:50 [INFO]   ✔ Timesheet option clicked
+2026-04-20 05:42:50 [INFO]   ✔ "Timesheets" header visible
+2026-04-20 05:42:50 [INFO]   [OK] Navigated to Timesheets page
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 3: Open Upload Modal
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]   [OK] Upload modal opened
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 4: Upload Excel File
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]      File: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-20 05:42:50 [INFO]   [OK] File attached to input
+2026-04-20 05:42:50 [INFO]   [OK] Clicked upload-next-button — file submitted
+2026-04-20 05:42:50 [INFO]   [OK] File upload completed
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 5: Navigate to the Target Week
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]      Target date range: 2026-04-20 to 2026-04-26
+2026-04-20 05:42:50 [INFO]      [INFO] Navigating to week containing: 2026-04-20
+2026-04-20 05:42:50 [INFO]      [DEBUG] Displayed week: 2026-04-20 to 2026-04-26 | target: 2026-04-20
+2026-04-20 05:42:50 [INFO]      [INFO] Correct week is already displayed
+2026-04-20 05:42:50 [INFO]   [OK] Correct week displayed
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 6: Bulk Approve All Users
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]   [OK] Selected all users via header checkbox
+2026-04-20 05:42:50 [INFO]   [OK] Clicked Approve All
+2026-04-20 05:42:50 [INFO]   [OK] Bulk approval processed
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   Step 7: Push to Payroll
+2026-04-20 05:42:50 [INFO]   ----------------------------------------
+2026-04-20 05:42:50 [INFO]   [OK] Payroll menu opened
+2026-04-20 05:42:50 [INFO]   [OK] Clicked Push to Payroll
+2026-04-20 05:42:50 [INFO]   [OK] Navigated to payroll overview page
+2026-04-20 05:42:50 [INFO]   [OK] Waited 10 seconds on payroll overview
+2026-04-20 05:42:50 [INFO]   [INFO] Job written to jobs.json  run_id=f74b147d  username=molly.muller@lumberfi.com
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   ================================================================================
+2026-04-20 05:42:50 [INFO]   PHASE 1 COMPLETE
+2026-04-20 05:42:50 [INFO]     run_id           : f74b147d
+2026-04-20 05:42:50 [INFO]     username         : molly.muller@lumberfi.com
+2026-04-20 05:42:50 [INFO]     pay_period_start : 2026-04-20
+2026-04-20 05:42:50 [INFO]     pay_period_end   : 2026-04-26
+2026-04-20 05:42:50 [INFO]     timesheet_file   : timesheet_upload_3rdupload.xlsx
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]     Run Phase 2 after the payroll overview is ready (usually 4-5 hrs).
+2026-04-20 05:42:50 [INFO]     Set PAYROLL_RUN_ID=f74b147d to skip the interactive menu.
+2026-04-20 05:42:50 [INFO]   ================================================================================
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   .
+2026-04-20 05:42:50 [INFO]   
+2026-04-20 05:42:50 [INFO]   ========================= 1 passed in 68.52s (0:01:08) =========================
+2026-04-20 05:42:51 [INFO] Phase 1 PASSED — run_id: f74b147d
+2026-04-20 05:42:52 [ERROR] Slack message failed: The request to the Slack API failed. (url: https://slack.com/api/chat.postMessage)
+The server responded with: {'ok': False, 'error': 'invalid_auth'}

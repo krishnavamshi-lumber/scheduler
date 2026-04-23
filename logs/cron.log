@@ -1,0 +1,902 @@
+2026-04-20 18:30:02 [INFO] ============================================================
+2026-04-20 18:30:02 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-20 18:30:02 [INFO] Time    : 2026-04-21 00:00:02 IST
+2026-04-20 18:30:02 [INFO] Company : Tuesday
+2026-04-20 18:30:02 [INFO] ============================================================
+2026-04-20 18:30:02 [INFO] Fetching Excel from Google Drive...
+2026-04-20 18:30:06 [INFO] Excel saved: tuesday_input.xlsx (20,820 bytes)
+2026-04-20 18:30:06 [INFO] Starting Phase 1 automation...
+2026-04-20 18:30:06 [INFO] Credentials written for Tuesday (neel.madi@lumberfi.com)
+2026-04-20 18:30:06 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-20 18:31:19 [INFO]   ============================= test session starts ==============================
+2026-04-20 18:31:19 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-20 18:31:19 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-20 18:31:19 [INFO]   configfile: pytest.ini
+2026-04-20 18:31:19 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-20 18:31:19 [INFO]   timeout: 1800.0s
+2026-04-20 18:31:19 [INFO]   timeout method: signal
+2026-04-20 18:31:19 [INFO]   timeout func_only: False
+2026-04-20 18:31:19 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-20 18:31:19 [INFO]   [INFO] Loaded 47 unique user(s)
+2026-04-20 18:31:19 [INFO]   [INFO] Date range: 2026-04-21 to 2026-04-28
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-20 18:31:19 [INFO]   [INFO] Credentials loaded
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Phase 1 — initialization complete
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   collected 1 item
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-20 18:31:19 [INFO]   ================================================================================
+2026-04-20 18:31:19 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-20 18:31:19 [INFO]   ================================================================================
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 1: Authentication
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]   ✅ Loaded .env file successfully
+2026-04-20 18:31:19 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-20 18:31:19 [INFO]   🔄 Authentication attempt 1/1
+2026-04-20 18:31:19 [INFO]   📧 Using email: neel.madi@lumberfi.com
+2026-04-20 18:31:19 [INFO]   📸 Screenshot taken before authentication
+2026-04-20 18:31:19 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-20 18:31:19 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-20 18:31:19 [INFO]   ✅ Login page fully loaded
+2026-04-20 18:31:19 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-20 18:31:19 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-20 18:31:19 [INFO]   📧 Filling email field...
+2026-04-20 18:31:19 [INFO]   ✅ Email filled: neel.madi@lumberfi.com
+2026-04-20 18:31:19 [INFO]   🔒 Filling password field...
+2026-04-20 18:31:19 [INFO]   ✅ Password filled
+2026-04-20 18:31:19 [INFO]   🔘 Clicking Sign In button...
+2026-04-20 18:31:19 [INFO]   ✅ Sign In button clicked
+2026-04-20 18:31:19 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-20 18:31:19 [INFO]   🔍 Verifying successful authentication...
+2026-04-20 18:31:19 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-20 18:31:19 [INFO]   🎉 Authentication completed successfully!
+2026-04-20 18:31:19 [INFO]   [OK] Authentication completed
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 2: Navigate to Timesheets Page
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]   Navigating → Time → Timesheets
+2026-04-20 18:31:19 [INFO]   ✔ Time menu opened
+2026-04-20 18:31:19 [INFO]   ✔ Timesheet option clicked
+2026-04-20 18:31:19 [INFO]   ✔ "Timesheets" header visible
+2026-04-20 18:31:19 [INFO]   [OK] Navigated to Timesheets page
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 3: Open Upload Modal
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]   [OK] Upload modal opened
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 4: Upload Excel File
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]      File: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-20 18:31:19 [INFO]   [OK] File attached to input
+2026-04-20 18:31:19 [INFO]   [OK] Clicked upload-next-button — file submitted
+2026-04-20 18:31:19 [INFO]   [OK] File upload completed
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 5: Navigate to the Target Week
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]      Target date range: 2026-04-21 to 2026-04-28
+2026-04-20 18:31:19 [INFO]      [INFO] Navigating to week containing: 2026-04-21
+2026-04-20 18:31:19 [INFO]      [DEBUG] Displayed week: 2026-04-14 to 2026-04-20 | target: 2026-04-21
+2026-04-20 18:31:19 [INFO]      [DEBUG] Raw UI date texts: ['Apr 14-', 'Apr 20,', '2026']
+2026-04-20 18:31:19 [INFO]      [INFO] Clicked Next (current: 2026-04-14)
+2026-04-20 18:31:19 [INFO]      [DEBUG] Displayed week: 2026-04-21 to 2026-04-27 | target: 2026-04-21
+2026-04-20 18:31:19 [INFO]      [INFO] Correct week is already displayed
+2026-04-20 18:31:19 [INFO]   [OK] Correct week displayed
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 6: Bulk Approve All Users
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]   [OK] Selected all users via header checkbox
+2026-04-20 18:31:19 [INFO]   [OK] Clicked Approve All
+2026-04-20 18:31:19 [INFO]   [OK] Bulk approval processed
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   Step 7: Push to Payroll
+2026-04-20 18:31:19 [INFO]   ----------------------------------------
+2026-04-20 18:31:19 [INFO]   [OK] Payroll menu opened
+2026-04-20 18:31:19 [INFO]   [OK] Clicked Push to Payroll
+2026-04-20 18:31:19 [INFO]   [OK] Navigated to payroll overview page
+2026-04-20 18:31:19 [INFO]   [OK] Waited 10 seconds on payroll overview
+2026-04-20 18:31:19 [INFO]   [INFO] Job written to jobs.json  run_id=1f2494dc  username=neel.madi@lumberfi.com
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   ================================================================================
+2026-04-20 18:31:19 [INFO]   PHASE 1 COMPLETE
+2026-04-20 18:31:19 [INFO]     run_id           : 1f2494dc
+2026-04-20 18:31:19 [INFO]     username         : neel.madi@lumberfi.com
+2026-04-20 18:31:19 [INFO]     pay_period_start : 2026-04-21
+2026-04-20 18:31:19 [INFO]     pay_period_end   : 2026-04-28
+2026-04-20 18:31:19 [INFO]     timesheet_file   : timesheet_upload_3rdupload.xlsx
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]     Run Phase 2 after the payroll overview is ready (usually 4-5 hrs).
+2026-04-20 18:31:19 [INFO]     Set PAYROLL_RUN_ID=1f2494dc to skip the interactive menu.
+2026-04-20 18:31:19 [INFO]   ================================================================================
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   .
+2026-04-20 18:31:19 [INFO]   
+2026-04-20 18:31:19 [INFO]   ========================= 1 passed in 72.04s (0:01:12) =========================
+2026-04-20 18:31:19 [INFO] Phase 1 PASSED — run_id: 1f2494dc
+2026-04-20 21:30:01 [INFO] ============================================================
+2026-04-20 21:30:01 [INFO] PHASE 2 SCHEDULER STARTED
+2026-04-20 21:30:01 [INFO] Time    : 2026-04-21 03:00:01 IST
+2026-04-20 21:30:01 [INFO] Company : Tuesday
+2026-04-20 21:30:01 [INFO] ============================================================
+2026-04-20 21:30:01 [INFO] Looking for today's WAITING job...
+2026-04-20 21:30:01 [INFO] Job found: run_id=1f2494dc period=2026-04-21 to 2026-04-28
+2026-04-20 21:30:01 [INFO] Fetching Excel from Google Drive for employee name verification...
+2026-04-20 21:30:06 [INFO] Excel saved: timesheet_upload_3rdupload.xlsx
+2026-04-20 21:30:06 [INFO] Run folder: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-21_03-00-06
+2026-04-20 21:30:06 [INFO] Starting Phase 2 automation...
+2026-04-20 21:30:06 [INFO] Running Phase 2 pytest: /home/ubuntu/payroll_phase2/venv/bin/python -m pytest tests/e2e/timesheets/phase2/test_payroll_overview.py -s --tb=short
+2026-04-20 21:30:06 [INFO]   run_id           : 1f2494dc
+2026-04-20 21:30:06 [INFO]   REPORT_DOWNLOAD_DIR: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-21_03-00-06
+2026-04-21 04:40:18 [INFO]   ============================= test session starts ==============================
+2026-04-21 04:40:18 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-21 04:40:18 [INFO]   rootdir: /home/ubuntu/payroll_phase2
+2026-04-21 04:40:18 [INFO]   configfile: pytest.ini
+2026-04-21 04:40:18 [INFO]   plugins: base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-21 04:40:18 [INFO]   timeout: 1800.0s
+2026-04-21 04:40:18 [INFO]   timeout method: signal
+2026-04-21 04:40:18 [INFO]   timeout func_only: False
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   Phase 2 -- selecting payroll job...
+2026-04-21 04:40:18 [INFO]   [INFO] Using PAYROLL_RUN_ID from environment: 1f2494dc
+2026-04-21 04:40:18 [INFO]   Phase 2 -- job selected: run_id=1f2494dc
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   Phase 2 -- loading timesheet data for employee name verification...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 04:40:18 [INFO]   [INFO] Loaded 47 unique user(s)
+2026-04-21 04:40:18 [INFO]   [INFO] Date range: 2026-04-21 to 2026-04-28
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   Phase 2 -- initialization complete
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   collected 1 item
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   tests/e2e/timesheets/phase2/test_payroll_overview.py 
+2026-04-21 04:40:18 [INFO]   ================================================================================
+2026-04-21 04:40:18 [INFO]   PHASE 2 -- Payroll Overview, Preview & Download
+2026-04-21 04:40:18 [INFO]     run_id    : 1f2494dc
+2026-04-21 04:40:18 [INFO]     username  : neel.madi@lumberfi.com
+2026-04-21 04:40:18 [INFO]     period    : 2026-04-21 to 2026-04-28
+2026-04-21 04:40:18 [INFO]   ================================================================================
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   Step 8: Authenticate and navigate to Payroll Overview
+2026-04-21 04:40:18 [INFO]   ----------------------------------------
+2026-04-21 04:40:18 [INFO]   ✅ Loaded .env file successfully
+2026-04-21 04:40:18 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-21 04:40:18 [INFO]   🔄 Authentication attempt 1/1
+2026-04-21 04:40:18 [INFO]   📧 Using email: neel.madi@lumberfi.com
+2026-04-21 04:40:18 [INFO]   📸 Screenshot taken before authentication
+2026-04-21 04:40:18 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-21 04:40:18 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-21 04:40:18 [INFO]   ✅ Login page fully loaded
+2026-04-21 04:40:18 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-21 04:40:18 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-21 04:40:18 [INFO]   📧 Filling email field...
+2026-04-21 04:40:18 [INFO]   ✅ Email filled: neel.madi@lumberfi.com
+2026-04-21 04:40:18 [INFO]   🔒 Filling password field...
+2026-04-21 04:40:18 [INFO]   ✅ Password filled
+2026-04-21 04:40:18 [INFO]   🔘 Clicking Sign In button...
+2026-04-21 04:40:18 [INFO]   ✅ Sign In button clicked
+2026-04-21 04:40:18 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-21 04:40:18 [INFO]   🔍 Verifying successful authentication...
+2026-04-21 04:40:18 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-21 04:40:18 [INFO]   🎉 Authentication completed successfully!
+2026-04-21 04:40:18 [INFO]   [OK] Authentication completed
+2026-04-21 04:40:18 [INFO]   [OK] Navigated to Payroll Overview: https://qa-admin.lumberfi.com/payroll/overview
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]   Step 8c: Select Pay Period & Verify Employee Names
+2026-04-21 04:40:18 [INFO]   ----------------------------------------
+2026-04-21 04:40:18 [INFO]      Checking 47 user(s) -- up to 10 attempts x 4 min
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 1/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 2/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 3/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 4/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 5/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 6/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   
+2026-04-21 04:40:18 [INFO]      Attempt 7/10: waiting for pay period...
+2026-04-21 04:40:18 [INFO]      [INFO] Looking for Regular period containing: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Opened pay period dropdown
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 1)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [INFO] Clicked View More
+2026-04-21 04:40:18 [INFO]      [INFO] Items: 6 to 6
+2026-04-21 04:40:18 [INFO]      [INFO] Scanning 6 menu item(s) (attempt 2)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 14 Apr 2026 - 20 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 07 Apr 2026 - 13 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 31 Mar 2026 - 06 Apr 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [DEBUG] Checking: 17 Mar 2026 - 23 Mar 2026 (Regular)
+2026-04-21 04:40:18 [INFO]      [WARN] Pay period not available yet: No Regular period found in dropdown containing date: 2026-04-21
+2026-04-21 04:40:18 [INFO]      [INFO] Waiting 4 min then refreshing...
+2026-04-21 04:40:18 [INFO]   +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-04-21 04:40:18 [INFO]   ~~~~~~~~~~~~~~~~~~~~~ Stack of asyncio_0 (134951743780544) ~~~~~~~~~~~~~~~~~~~~~
+2026-04-21 04:40:18 [INFO]     File "/usr/lib/python3.12/threading.py", line 1030, in _bootstrap
+2026-04-21 04:40:18 [INFO]       self._bootstrap_inner()
+2026-04-21 04:40:18 [INFO]     File "/usr/lib/python3.12/threading.py", line 1073, in _bootstrap_inner
+2026-04-21 04:40:18 [INFO]       self.run()
+2026-04-21 04:40:18 [INFO]     File "/usr/lib/python3.12/threading.py", line 1010, in run
+2026-04-21 04:40:18 [INFO]       self._target(*self._args, **self._kwargs)
+2026-04-21 04:40:18 [INFO]     File "/usr/lib/python3.12/concurrent/futures/thread.py", line 89, in _worker
+2026-04-21 04:40:18 [INFO]       work_item = work_queue.get(block=True)
+2026-04-21 04:40:18 [INFO]   +++++++++++++++++++++++++++++++++++ Timeout ++++++++++++++++++++++++++++++++++++
+2026-04-21 04:40:18 [INFO]   [OK] Log saved: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-21_03-00-06/phase2_run.log
+2026-04-21 04:40:18 [INFO]   F
+2026-04-21 04:40:18 [ERROR] Phase 2 FAILED
+2026-04-21 18:30:02 [INFO] ============================================================
+2026-04-21 18:30:02 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-21 18:30:02 [INFO] Time    : 2026-04-22 00:00:02 IST
+2026-04-21 18:30:02 [INFO] Company : Wednesday
+2026-04-21 18:30:02 [INFO] ============================================================
+2026-04-21 18:30:02 [INFO] Fetching Excel from Google Drive...
+2026-04-21 18:30:07 [INFO] Excel saved: wednesday_input.xlsx (12,845 bytes)
+2026-04-21 18:30:07 [INFO] Starting Phase 1 automation...
+2026-04-21 18:30:07 [INFO] Credentials written for Wednesday (wednesday@lumberfi.com)
+2026-04-21 18:30:07 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-21 18:31:16 [INFO]   ============================= test session starts ==============================
+2026-04-21 18:31:16 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-21 18:31:16 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-21 18:31:16 [INFO]   configfile: pytest.ini
+2026-04-21 18:31:16 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-21 18:31:16 [INFO]   timeout: 1800.0s
+2026-04-21 18:31:16 [INFO]   timeout method: signal
+2026-04-21 18:31:16 [INFO]   timeout func_only: False
+2026-04-21 18:31:16 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   [INFO] Loaded 4 unique user(s)
+2026-04-21 18:31:16 [INFO]   [INFO] Date range: 2026-04-15 to 2026-04-21
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-21 18:31:16 [INFO]   [INFO] Credentials loaded
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Phase 1 — initialization complete
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   collected 1 item
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 1: Authentication
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   ✅ Loaded .env file successfully
+2026-04-21 18:31:16 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-21 18:31:16 [INFO]   🔄 Authentication attempt 1/1
+2026-04-21 18:31:16 [INFO]   📧 Using email: wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   📸 Screenshot taken before authentication
+2026-04-21 18:31:16 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-21 18:31:16 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-21 18:31:16 [INFO]   ✅ Login page fully loaded
+2026-04-21 18:31:16 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-21 18:31:16 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-21 18:31:16 [INFO]   📧 Filling email field...
+2026-04-21 18:31:16 [INFO]   ✅ Email filled: wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   🔒 Filling password field...
+2026-04-21 18:31:16 [INFO]   ✅ Password filled
+2026-04-21 18:31:16 [INFO]   🔘 Clicking Sign In button...
+2026-04-21 18:31:16 [INFO]   ✅ Sign In button clicked
+2026-04-21 18:31:16 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-21 18:31:16 [INFO]   🔍 Verifying successful authentication...
+2026-04-21 18:31:16 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-21 18:31:16 [INFO]   🎉 Authentication completed successfully!
+2026-04-21 18:31:16 [INFO]   [OK] Authentication completed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 2: Navigate to Timesheets Page
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   Navigating → Time → Timesheets
+2026-04-21 18:31:16 [INFO]   ✔ Time menu opened
+2026-04-21 18:31:16 [INFO]   ✔ Timesheet option clicked
+2026-04-21 18:31:16 [INFO]   ✔ "Timesheets" header visible
+2026-04-21 18:31:16 [INFO]   [OK] Navigated to Timesheets page
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 3: Open Upload Modal
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Upload modal opened
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 4: Upload Excel File
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]      File: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   [OK] File attached to input
+2026-04-21 18:31:16 [INFO]   [OK] Clicked upload-next-button — file submitted
+2026-04-21 18:31:16 [INFO]   [OK] File upload completed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   [OK] Closed upload modal
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 5: Navigate to the Target Week
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]      Target date range: 2026-04-15 to 2026-04-21
+2026-04-21 18:31:16 [INFO]      [INFO] Navigating to week containing: 2026-04-15
+2026-04-21 18:31:16 [INFO]      [DEBUG] Displayed week: 2026-04-15 to 2026-04-21 | target: 2026-04-15
+2026-04-21 18:31:16 [INFO]      [INFO] Correct week is already displayed
+2026-04-21 18:31:16 [INFO]   [OK] Correct week displayed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 6: Bulk Approve All Users
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Selected all users via header checkbox
+2026-04-21 18:31:16 [INFO]   [OK] Clicked Approve All
+2026-04-21 18:31:16 [INFO]   [OK] Bulk approval processed
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   Step 7: Push to Payroll
+2026-04-21 18:31:16 [INFO]   ----------------------------------------
+2026-04-21 18:31:16 [INFO]   [OK] Payroll menu opened
+2026-04-21 18:31:16 [INFO]   [OK] Clicked Push to Payroll
+2026-04-21 18:31:16 [INFO]   [OK] Navigated to payroll overview page
+2026-04-21 18:31:16 [INFO]   [OK] Waited 10 seconds on payroll overview
+2026-04-21 18:31:16 [INFO]   [INFO] Job written to jobs.json  run_id=429de543  username=wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   PHASE 1 COMPLETE
+2026-04-21 18:31:16 [INFO]     run_id           : 429de543
+2026-04-21 18:31:16 [INFO]     username         : wednesday@lumberfi.com
+2026-04-21 18:31:16 [INFO]     pay_period_start : 2026-04-15
+2026-04-21 18:31:16 [INFO]     pay_period_end   : 2026-04-21
+2026-04-21 18:31:16 [INFO]     timesheet_file   : timesheet_upload_3rdupload.xlsx
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]     Run Phase 2 after the payroll overview is ready (usually 4-5 hrs).
+2026-04-21 18:31:16 [INFO]     Set PAYROLL_RUN_ID=429de543 to skip the interactive menu.
+2026-04-21 18:31:16 [INFO]   ================================================================================
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   .
+2026-04-21 18:31:16 [INFO]   
+2026-04-21 18:31:16 [INFO]   ========================= 1 passed in 68.34s (0:01:08) =========================
+2026-04-21 18:31:16 [INFO] Phase 1 PASSED — run_id: 429de543
+2026-04-21 21:30:01 [INFO] ============================================================
+2026-04-21 21:30:01 [INFO] PHASE 2 SCHEDULER STARTED
+2026-04-21 21:30:01 [INFO] Time    : 2026-04-22 03:00:01 IST
+2026-04-21 21:30:01 [INFO] Company : Wednesday
+2026-04-21 21:30:01 [INFO] ============================================================
+2026-04-21 21:30:01 [INFO] Looking for today's WAITING job...
+2026-04-21 21:30:01 [INFO] Job found: run_id=429de543 period=2026-04-15 to 2026-04-21
+2026-04-21 21:30:01 [INFO] Fetching Excel from Google Drive for employee name verification...
+2026-04-21 21:30:06 [INFO] Excel saved: timesheet_upload_3rdupload.xlsx
+2026-04-21 21:30:06 [INFO] Run folder: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06
+2026-04-21 21:30:06 [INFO] Starting Phase 2 automation...
+2026-04-21 21:30:06 [INFO] Running Phase 2 pytest: /home/ubuntu/payroll_phase2/venv/bin/python -m pytest tests/e2e/timesheets/phase2/test_payroll_overview.py -s --tb=short
+2026-04-21 21:30:06 [INFO]   run_id           : 429de543
+2026-04-21 21:30:06 [INFO]   REPORT_DOWNLOAD_DIR: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06
+2026-04-21 21:37:06 [INFO]   ============================= test session starts ==============================
+2026-04-21 21:37:06 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-21 21:37:06 [INFO]   rootdir: /home/ubuntu/payroll_phase2
+2026-04-21 21:37:06 [INFO]   configfile: pytest.ini
+2026-04-21 21:37:06 [INFO]   plugins: base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-21 21:37:06 [INFO]   timeout: 1800.0s
+2026-04-21 21:37:06 [INFO]   timeout method: signal
+2026-04-21 21:37:06 [INFO]   timeout func_only: False
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Phase 2 -- selecting payroll job...
+2026-04-21 21:37:06 [INFO]   [INFO] Using PAYROLL_RUN_ID from environment: 429de543
+2026-04-21 21:37:06 [INFO]   Phase 2 -- job selected: run_id=429de543
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Phase 2 -- loading timesheet data for employee name verification...
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-21 21:37:06 [INFO]   [INFO] Loaded 4 unique user(s)
+2026-04-21 21:37:06 [INFO]   [INFO] Date range: 2026-04-15 to 2026-04-21
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Phase 2 -- initialization complete
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   collected 1 item
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   tests/e2e/timesheets/phase2/test_payroll_overview.py 
+2026-04-21 21:37:06 [INFO]   ================================================================================
+2026-04-21 21:37:06 [INFO]   PHASE 2 -- Payroll Overview, Preview & Download
+2026-04-21 21:37:06 [INFO]     run_id    : 429de543
+2026-04-21 21:37:06 [INFO]     username  : wednesday@lumberfi.com
+2026-04-21 21:37:06 [INFO]     period    : 2026-04-15 to 2026-04-21
+2026-04-21 21:37:06 [INFO]   ================================================================================
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Step 8: Authenticate and navigate to Payroll Overview
+2026-04-21 21:37:06 [INFO]   ----------------------------------------
+2026-04-21 21:37:06 [INFO]   ✅ Loaded .env file successfully
+2026-04-21 21:37:06 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-21 21:37:06 [INFO]   🔄 Authentication attempt 1/1
+2026-04-21 21:37:06 [INFO]   📧 Using email: wednesday@lumberfi.com
+2026-04-21 21:37:06 [INFO]   📸 Screenshot taken before authentication
+2026-04-21 21:37:06 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-21 21:37:06 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-21 21:37:06 [INFO]   ✅ Login page fully loaded
+2026-04-21 21:37:06 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-21 21:37:06 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-21 21:37:06 [INFO]   📧 Filling email field...
+2026-04-21 21:37:06 [INFO]   ✅ Email filled: wednesday@lumberfi.com
+2026-04-21 21:37:06 [INFO]   🔒 Filling password field...
+2026-04-21 21:37:06 [INFO]   ✅ Password filled
+2026-04-21 21:37:06 [INFO]   🔘 Clicking Sign In button...
+2026-04-21 21:37:06 [INFO]   ✅ Sign In button clicked
+2026-04-21 21:37:06 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-21 21:37:06 [INFO]   🔍 Verifying successful authentication...
+2026-04-21 21:37:06 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-21 21:37:06 [INFO]   🎉 Authentication completed successfully!
+2026-04-21 21:37:06 [INFO]   [OK] Authentication completed
+2026-04-21 21:37:06 [INFO]   [OK] Navigated to Payroll Overview: https://qa-admin.lumberfi.com/payroll/overview
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Step 8c: Select Pay Period & Verify Employee Names
+2026-04-21 21:37:06 [INFO]   ----------------------------------------
+2026-04-21 21:37:06 [INFO]      Checking 4 user(s) -- up to 10 attempts x 4 min
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]      Attempt 1/10: waiting for pay period...
+2026-04-21 21:37:06 [INFO]      [INFO] Looking for Regular period containing: 2026-04-15
+2026-04-21 21:37:06 [INFO]      [INFO] Pay period already selected: 15 Apr 2026 - 21 Apr 2026 (Regular)
+2026-04-21 21:37:06 [INFO]      Matched pay period: 2026-04-15 to 2026-04-21
+2026-04-21 21:37:06 [INFO]      [WARN] Not found: Smith, David
+2026-04-21 21:37:06 [INFO]      [WARN] Not found: Jones, Elizabeth
+2026-04-21 21:37:06 [INFO]      [WARN] Not found: Mehta, James
+2026-04-21 21:37:06 [INFO]      [WARN] Not found: Miller, Jennifer
+2026-04-21 21:37:06 [INFO]      [INFO] 0/4 found | Missing: Smith, David, Jones, Elizabeth, Mehta, James, Miller, Jennifer
+2026-04-21 21:37:06 [INFO]   [WARN] Some employees not confirmed -- continuing with available data
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Step 9: Navigate to Payroll Preview
+2026-04-21 21:37:06 [INFO]   ----------------------------------------
+2026-04-21 21:37:06 [INFO]   [OK] Payroll Overview page loaded
+2026-04-21 21:37:06 [INFO]   [OK] Clicked Preview button
+2026-04-21 21:37:06 [INFO]   [INFO] Start Payroll button not shown (skipped)
+2026-04-21 21:37:06 [INFO]   [OK] Navigated to Payroll Preview page
+2026-04-21 21:37:06 [INFO]   [OK] Submitted payroll preview
+2026-04-21 21:37:06 [INFO]   [OK] Confirmed Submit Payroll in modal
+2026-04-21 21:37:06 [INFO]   [OK] Closed submission modal
+2026-04-21 21:37:06 [INFO]   [OK] Payroll history page loaded
+2026-04-21 21:37:06 [INFO]   [OK] Clicked Select the pay period button
+2026-04-21 21:37:06 [INFO]   [INFO] Attempt 1/10
+2026-04-21 21:37:06 [INFO]   [OK] Selected matching period: 15 Apr 2026 - 21 Apr 2026 (Regular)
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   Step 10: Download Reports
+2026-04-21 21:37:06 [INFO]   ----------------------------------------
+2026-04-21 21:37:06 [INFO]   [OK] Download directory: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06
+2026-04-21 21:37:06 [INFO]      Period suffix: _2026-04-15_to_2026-04-21
+2026-04-21 21:37:06 [INFO]   [OK] Clicked Download button
+2026-04-21 21:37:06 [INFO]   [INFO] Payroll Paycheck not ready (400), retrying... (1/9)
+2026-04-21 21:37:06 [INFO]   [INFO] Payroll Paycheck not ready (400), retrying... (2/9)
+2026-04-21 21:37:06 [INFO]   [OK] Payroll Paycheck ready on attempt 3
+2026-04-21 21:37:06 [INFO]   [OK] Payroll Paycheck downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06/payroll_paycheck_2026-04-15_to_2026-04-21.pdf
+2026-04-21 21:37:06 [INFO]   [OK] Cash Requirement downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06/cash_requirement_2026-04-15_to_2026-04-21.pdf
+2026-04-21 21:37:06 [INFO]   [OK] Paystub ready on attempt 1
+2026-04-21 21:37:06 [INFO]   [OK] Paystub downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06/paystub_2026-04-15_to_2026-04-21.pdf
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   [OK] All reports downloaded to: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   [OK] Tag summary saved: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06/tag_summary.json
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   ================================================================================
+2026-04-21 21:37:06 [INFO]   PHASE 2 COMPLETE
+2026-04-21 21:37:06 [INFO]   ================================================================================
+2026-04-21 21:37:06 [INFO]     run_id       : 429de543
+2026-04-21 21:37:06 [INFO]     username     : wednesday@lumberfi.com
+2026-04-21 21:37:06 [INFO]     period       : 2026-04-15 to 2026-04-21
+2026-04-21 21:37:06 [INFO]     downloads    : /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06
+2026-04-21 21:37:06 [INFO]     total rows   : 0
+2026-04-21 21:37:06 [INFO]     users        : 4
+2026-04-21 21:37:06 [INFO]       [1] David Smith (ID: ) (MISSING from overview)
+2026-04-21 21:37:06 [INFO]       [2] Elizabeth Jones (ID: ) (MISSING from overview)
+2026-04-21 21:37:06 [INFO]       [3] James Mehta (ID: ) (MISSING from overview)
+2026-04-21 21:37:06 [INFO]       [4] Jennifer Miller (ID: ) (MISSING from overview)
+2026-04-21 21:37:06 [INFO]   ================================================================================
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   [OK] Log saved: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-22_03-00-06/phase2_run.log
+2026-04-21 21:37:06 [INFO]   [INFO] Job 429de543 marked COMPLETE
+2026-04-21 21:37:06 [INFO]   .
+2026-04-21 21:37:06 [INFO]   
+2026-04-21 21:37:06 [INFO]   ======================== 1 passed in 419.01s (0:06:59) =========================
+2026-04-21 21:37:06 [INFO] Phase 2 pytest PASSED
+2026-04-21 21:37:06 [INFO]   Renamed: payroll_paycheck_2026-04-15_to_2026-04-21.pdf → paycheck_wednesday.pdf
+2026-04-21 21:37:06 [INFO]   Renamed: cash_requirement_2026-04-15_to_2026-04-21.pdf → cash_requirement_wednesday.pdf
+2026-04-21 21:37:06 [INFO]   Renamed: paystub_2026-04-15_to_2026-04-21.pdf → paystub_wednesday.pdf
+2026-04-21 21:37:06 [INFO] Run folder renamed to: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-15_to_2026-04-21
+2026-04-21 21:37:06 [INFO] Uploading PDFs to Google Drive...
+2026-04-21 21:37:13 [INFO]   Uploaded to Drive: cash_requirement_wednesday.pdf
+2026-04-21 21:37:16 [INFO]   Uploaded to Drive: paycheck_wednesday.pdf
+2026-04-21 21:37:19 [INFO]   Uploaded to Drive: paystub_wednesday.pdf
+2026-04-21 21:37:19 [INFO] PDFs uploaded to Drive: Payroll_Automation/Wednesday/Output/2026-04-15_to_2026-04-21/
+2026-04-21 21:37:19 [INFO] Loading current week paystub from Drive...
+2026-04-21 21:37:19 [INFO] Current paystub loaded from local: paystub_wednesday.pdf
+2026-04-21 21:37:19 [INFO] Looking for previous week paystub (7 days back)...
+2026-04-21 21:37:23 [INFO] Previous paystub found.
+2026-04-21 21:37:23 [INFO] Generating QA report via Claude API...
+[OK] Report saved: /tmp/tmppfvvra6_.docx
+2026-04-21 21:37:36 [INFO] Report generated successfully.
+2026-04-21 21:37:38 [INFO] Report sent to Slack: payroll_report_wednesday_20260422.docx
+2026-04-21 21:37:38 [INFO] Phase 2 scheduler completed successfully.
+2026-04-22 18:30:02 [INFO] ============================================================
+2026-04-22 18:30:02 [INFO] PHASE 1 SCHEDULER STARTED
+2026-04-22 18:30:02 [INFO] Time    : 2026-04-23 00:00:02 IST
+2026-04-22 18:30:02 [INFO] Company : Thursday
+2026-04-22 18:30:02 [INFO] ============================================================
+2026-04-22 18:30:02 [INFO] Fetching Excel from Google Drive...
+2026-04-22 18:30:06 [INFO] Excel saved: thursday_input.xlsx (9,889 bytes)
+2026-04-22 18:30:06 [INFO] Starting Phase 1 automation...
+2026-04-22 18:30:06 [INFO] Credentials written for Thursday (hari.red@lumberfi.com)
+2026-04-22 18:30:06 [INFO] Running Phase 1 pytest: /home/ubuntu/Report_downloads/venv/bin/python -m pytest tests/e2e/timesheets/phase1/test_upload_and_push.py -s --tb=short
+2026-04-22 18:31:12 [INFO]   ============================= test session starts ==============================
+2026-04-22 18:31:12 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-22 18:31:12 [INFO]   rootdir: /home/ubuntu/Report_downloads
+2026-04-22 18:31:12 [INFO]   configfile: pytest.ini
+2026-04-22 18:31:12 [INFO]   plugins: anyio-4.13.0, base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-22 18:31:12 [INFO]   timeout: 1800.0s
+2026-04-22 18:31:12 [INFO]   timeout method: signal
+2026-04-22 18:31:12 [INFO]   timeout func_only: False
+2026-04-22 18:31:12 [INFO]   Phase 1 — loading timesheet data and credentials...
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-22 18:31:12 [INFO]   [INFO] Loaded 4 unique user(s)
+2026-04-22 18:31:12 [INFO]   [INFO] Date range: 2026-04-16 to 2026-04-22
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   [INFO] Loading credentials from: /home/ubuntu/Report_downloads/data-driven-files/credentials/credentials.json
+2026-04-22 18:31:12 [INFO]   [INFO] Credentials loaded
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Phase 1 — initialization complete
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   collected 1 item
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   tests/e2e/timesheets/phase1/test_upload_and_push.py 
+2026-04-22 18:31:12 [INFO]   ================================================================================
+2026-04-22 18:31:12 [INFO]   PHASE 1 — Upload Timesheet & Push to Payroll
+2026-04-22 18:31:12 [INFO]   ================================================================================
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 1: Authentication
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]   ✅ Loaded .env file successfully
+2026-04-22 18:31:12 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-22 18:31:12 [INFO]   🔄 Authentication attempt 1/1
+2026-04-22 18:31:12 [INFO]   📧 Using email: hari.red@lumberfi.com
+2026-04-22 18:31:12 [INFO]   📸 Screenshot taken before authentication
+2026-04-22 18:31:12 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-22 18:31:12 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-22 18:31:12 [INFO]   ✅ Login page fully loaded
+2026-04-22 18:31:12 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-22 18:31:12 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-22 18:31:12 [INFO]   📧 Filling email field...
+2026-04-22 18:31:12 [INFO]   ✅ Email filled: hari.red@lumberfi.com
+2026-04-22 18:31:12 [INFO]   🔒 Filling password field...
+2026-04-22 18:31:12 [INFO]   ✅ Password filled
+2026-04-22 18:31:12 [INFO]   🔘 Clicking Sign In button...
+2026-04-22 18:31:12 [INFO]   ✅ Sign In button clicked
+2026-04-22 18:31:12 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-22 18:31:12 [INFO]   🔍 Verifying successful authentication...
+2026-04-22 18:31:12 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-22 18:31:12 [INFO]   🎉 Authentication completed successfully!
+2026-04-22 18:31:12 [INFO]   [OK] Authentication completed
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 2: Navigate to Timesheets Page
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]   Navigating → Time → Timesheets
+2026-04-22 18:31:12 [INFO]   ✔ Time menu opened
+2026-04-22 18:31:12 [INFO]   ✔ Timesheet option clicked
+2026-04-22 18:31:12 [INFO]   ✔ "Timesheets" header visible
+2026-04-22 18:31:12 [INFO]   [OK] Navigated to Timesheets page
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 3: Open Upload Modal
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]   [OK] Upload modal opened
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 4: Upload Excel File
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]      File: /home/ubuntu/Report_downloads/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-22 18:31:12 [INFO]   [OK] File attached to input
+2026-04-22 18:31:12 [INFO]   [OK] Clicked upload-next-button — file submitted
+2026-04-22 18:31:12 [INFO]   [OK] File upload completed
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   [OK] Closed upload modal
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 5: Navigate to the Target Week
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]      Target date range: 2026-04-16 to 2026-04-22
+2026-04-22 18:31:12 [INFO]      [INFO] Navigating to week containing: 2026-04-16
+2026-04-22 18:31:12 [INFO]      [DEBUG] Displayed week: 2026-04-16 to 2026-04-22 | target: 2026-04-16
+2026-04-22 18:31:12 [INFO]      [INFO] Correct week is already displayed
+2026-04-22 18:31:12 [INFO]   [OK] Correct week displayed
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 6: Bulk Approve All Users
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]   [OK] Selected all users via header checkbox
+2026-04-22 18:31:12 [INFO]   [OK] Clicked Approve All
+2026-04-22 18:31:12 [INFO]   [OK] Bulk approval processed
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   Step 7: Push to Payroll
+2026-04-22 18:31:12 [INFO]   ----------------------------------------
+2026-04-22 18:31:12 [INFO]   [OK] Payroll menu opened
+2026-04-22 18:31:12 [INFO]   [OK] Clicked Push to Payroll
+2026-04-22 18:31:12 [INFO]   [OK] Navigated to payroll overview page
+2026-04-22 18:31:12 [INFO]   [OK] Waited 10 seconds on payroll overview
+2026-04-22 18:31:12 [INFO]   [INFO] Job written to jobs.json  run_id=0bfb98a0  username=hari.red@lumberfi.com
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   ================================================================================
+2026-04-22 18:31:12 [INFO]   PHASE 1 COMPLETE
+2026-04-22 18:31:12 [INFO]     run_id           : 0bfb98a0
+2026-04-22 18:31:12 [INFO]     username         : hari.red@lumberfi.com
+2026-04-22 18:31:12 [INFO]     pay_period_start : 2026-04-16
+2026-04-22 18:31:12 [INFO]     pay_period_end   : 2026-04-22
+2026-04-22 18:31:12 [INFO]     timesheet_file   : timesheet_upload_3rdupload.xlsx
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]     Run Phase 2 after the payroll overview is ready (usually 4-5 hrs).
+2026-04-22 18:31:12 [INFO]     Set PAYROLL_RUN_ID=0bfb98a0 to skip the interactive menu.
+2026-04-22 18:31:12 [INFO]   ================================================================================
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   .
+2026-04-22 18:31:12 [INFO]   
+2026-04-22 18:31:12 [INFO]   ========================= 1 passed in 64.65s (0:01:04) =========================
+2026-04-22 18:31:12 [INFO] Phase 1 PASSED — run_id: 0bfb98a0
+2026-04-22 21:30:01 [INFO] ============================================================
+2026-04-22 21:30:01 [INFO] PHASE 2 SCHEDULER STARTED
+2026-04-22 21:30:01 [INFO] Time    : 2026-04-23 03:00:01 IST
+2026-04-22 21:30:01 [INFO] Company : Thursday
+2026-04-22 21:30:01 [INFO] ============================================================
+2026-04-22 21:30:01 [INFO] Looking for today's WAITING job...
+2026-04-22 21:30:01 [INFO] Job found: run_id=0bfb98a0 period=2026-04-16 to 2026-04-22
+2026-04-22 21:30:01 [INFO] Fetching Excel from Google Drive for employee name verification...
+2026-04-22 21:30:06 [INFO] Excel saved: timesheet_upload_3rdupload.xlsx
+2026-04-22 21:30:06 [INFO] Run folder: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06
+2026-04-22 21:30:06 [INFO] Starting Phase 2 automation...
+2026-04-22 21:30:06 [INFO] Running Phase 2 pytest: /home/ubuntu/payroll_phase2/venv/bin/python -m pytest tests/e2e/timesheets/phase2/test_payroll_overview.py -s --tb=short
+2026-04-22 21:30:06 [INFO]   run_id           : 0bfb98a0
+2026-04-22 21:30:06 [INFO]   REPORT_DOWNLOAD_DIR: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06
+2026-04-22 21:38:00 [INFO]   ============================= test session starts ==============================
+2026-04-22 21:38:01 [INFO]   platform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0
+2026-04-22 21:38:01 [INFO]   rootdir: /home/ubuntu/payroll_phase2
+2026-04-22 21:38:01 [INFO]   configfile: pytest.ini
+2026-04-22 21:38:01 [INFO]   plugins: base-url-2.1.0, timeout-2.4.0, playwright-0.7.2
+2026-04-22 21:38:01 [INFO]   timeout: 1800.0s
+2026-04-22 21:38:01 [INFO]   timeout method: signal
+2026-04-22 21:38:01 [INFO]   timeout func_only: False
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Phase 2 -- selecting payroll job...
+2026-04-22 21:38:01 [INFO]   [INFO] Using PAYROLL_RUN_ID from environment: 0bfb98a0
+2026-04-22 21:38:01 [INFO]   Phase 2 -- job selected: run_id=0bfb98a0
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Phase 2 -- loading timesheet data for employee name verification...
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   [INFO] Loading button-3 timesheet data from: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/timesheet_upload_3rdupload.xlsx
+2026-04-22 21:38:01 [INFO]   [INFO] Loaded 4 unique user(s)
+2026-04-22 21:38:01 [INFO]   [INFO] Date range: 2026-04-16 to 2026-04-22
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Phase 2 -- initialization complete
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   collected 1 item
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   tests/e2e/timesheets/phase2/test_payroll_overview.py 
+2026-04-22 21:38:01 [INFO]   ================================================================================
+2026-04-22 21:38:01 [INFO]   PHASE 2 -- Payroll Overview, Preview & Download
+2026-04-22 21:38:01 [INFO]     run_id    : 0bfb98a0
+2026-04-22 21:38:01 [INFO]     username  : hari.red@lumberfi.com
+2026-04-22 21:38:01 [INFO]     period    : 2026-04-16 to 2026-04-22
+2026-04-22 21:38:01 [INFO]   ================================================================================
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Step 8: Authenticate and navigate to Payroll Overview
+2026-04-22 21:38:01 [INFO]   ----------------------------------------
+2026-04-22 21:38:01 [INFO]   ✅ Loaded .env file successfully
+2026-04-22 21:38:01 [INFO]   🔧 NAVIGATION_TIMEOUT from env: 6000000
+2026-04-22 21:38:01 [INFO]   🔄 Authentication attempt 1/1
+2026-04-22 21:38:01 [INFO]   📧 Using email: hari.red@lumberfi.com
+2026-04-22 21:38:01 [INFO]   📸 Screenshot taken before authentication
+2026-04-22 21:38:01 [INFO]   ⚠️ Found login form element - not logged in yet
+2026-04-22 21:38:01 [INFO]   ⏳ Waiting for login page to fully load...
+2026-04-22 21:38:01 [INFO]   ✅ Login page fully loaded
+2026-04-22 21:38:01 [INFO]   🔘 Looking for "Sign in with Password" button...
+2026-04-22 21:38:01 [INFO]   ✅ Clicked "Sign in with Password" button
+2026-04-22 21:38:01 [INFO]   📧 Filling email field...
+2026-04-22 21:38:01 [INFO]   ✅ Email filled: hari.red@lumberfi.com
+2026-04-22 21:38:01 [INFO]   🔒 Filling password field...
+2026-04-22 21:38:01 [INFO]   ✅ Password filled
+2026-04-22 21:38:01 [INFO]   🔘 Clicking Sign In button...
+2026-04-22 21:38:01 [INFO]   ✅ Sign In button clicked
+2026-04-22 21:38:01 [INFO]   ⏳ Waiting for authentication to complete...
+2026-04-22 21:38:01 [INFO]   🔍 Verifying successful authentication...
+2026-04-22 21:38:01 [INFO]   ✅ Authentication successful! Found dashboard element: text="Resources"
+2026-04-22 21:38:01 [INFO]   🎉 Authentication completed successfully!
+2026-04-22 21:38:01 [INFO]   [OK] Authentication completed
+2026-04-22 21:38:01 [INFO]   [OK] Navigated to Payroll Overview: https://qa-admin.lumberfi.com/payroll/overview
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Step 8c: Select Pay Period & Verify Employee Names
+2026-04-22 21:38:01 [INFO]   ----------------------------------------
+2026-04-22 21:38:01 [INFO]      Checking 4 user(s) -- up to 10 attempts x 4 min
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]      Attempt 1/10: waiting for pay period...
+2026-04-22 21:38:01 [INFO]      [INFO] Looking for Regular period containing: 2026-04-16
+2026-04-22 21:38:01 [INFO]      [INFO] Pay period already selected: 16 Apr 2026 - 22 Apr 2026 (Regular)
+2026-04-22 21:38:01 [INFO]      Matched pay period: 2026-04-16 to 2026-04-22
+2026-04-22 21:38:01 [INFO]      [OK] Found: mara, kona
+2026-04-22 21:38:01 [INFO]      [OK] Found: Miller, William
+2026-04-22 21:38:01 [INFO]      [OK] Found: Singh, Rohit
+2026-04-22 21:38:01 [INFO]      [OK] Found: Thomas, Patricia
+2026-04-22 21:38:01 [INFO]      [INFO] 4/4 found
+2026-04-22 21:38:01 [INFO]   [OK] Employee name verification done
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Step 9: Navigate to Payroll Preview
+2026-04-22 21:38:01 [INFO]   ----------------------------------------
+2026-04-22 21:38:01 [INFO]   [OK] Payroll Overview page loaded
+2026-04-22 21:38:01 [INFO]   [OK] Clicked Preview button
+2026-04-22 21:38:01 [INFO]   [INFO] Start Payroll button not shown (skipped)
+2026-04-22 21:38:01 [INFO]   [OK] Navigated to Payroll Preview page
+2026-04-22 21:38:01 [INFO]   [OK] Submitted payroll preview
+2026-04-22 21:38:01 [INFO]   [OK] Confirmed Submit Payroll in modal
+2026-04-22 21:38:01 [INFO]   [OK] Closed submission modal
+2026-04-22 21:38:01 [INFO]   [OK] Payroll history page loaded
+2026-04-22 21:38:01 [INFO]   [OK] Clicked Select the pay period button
+2026-04-22 21:38:01 [INFO]   [INFO] Attempt 1/10
+2026-04-22 21:38:01 [INFO]   [OK] Selected matching period: 16 Apr 2026 - 22 Apr 2026 (Regular)
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   Step 10: Download Reports
+2026-04-22 21:38:01 [INFO]   ----------------------------------------
+2026-04-22 21:38:01 [INFO]   [OK] Download directory: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06
+2026-04-22 21:38:01 [INFO]      Period suffix: _2026-04-16_to_2026-04-22
+2026-04-22 21:38:01 [INFO]   [OK] Clicked Download button
+2026-04-22 21:38:01 [INFO]   [INFO] Payroll Paycheck not ready (400), retrying... (1/9)
+2026-04-22 21:38:01 [INFO]   [INFO] Payroll Paycheck not ready (400), retrying... (2/9)
+2026-04-22 21:38:01 [INFO]   [INFO] Payroll Paycheck not ready (400), retrying... (3/9)
+2026-04-22 21:38:01 [INFO]   [OK] Payroll Paycheck ready on attempt 4
+2026-04-22 21:38:01 [INFO]   [OK] Payroll Paycheck downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06/payroll_paycheck_2026-04-16_to_2026-04-22.pdf
+2026-04-22 21:38:01 [INFO]   [OK] Cash Requirement downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06/cash_requirement_2026-04-16_to_2026-04-22.pdf
+2026-04-22 21:38:01 [INFO]   [OK] Paystub ready on attempt 1
+2026-04-22 21:38:01 [INFO]   [OK] Paystub downloaded: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06/paystub_2026-04-16_to_2026-04-22.pdf
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   [OK] All reports downloaded to: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   [OK] Tag summary saved: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06/tag_summary.json
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   ================================================================================
+2026-04-22 21:38:01 [INFO]   PHASE 2 COMPLETE
+2026-04-22 21:38:01 [INFO]   ================================================================================
+2026-04-22 21:38:01 [INFO]     run_id       : 0bfb98a0
+2026-04-22 21:38:01 [INFO]     username     : hari.red@lumberfi.com
+2026-04-22 21:38:01 [INFO]     period       : 2026-04-16 to 2026-04-22
+2026-04-22 21:38:01 [INFO]     downloads    : /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06
+2026-04-22 21:38:01 [INFO]     total rows   : 0
+2026-04-22 21:38:01 [INFO]     users        : 4
+2026-04-22 21:38:01 [INFO]       [1] kona mara (ID: ) 
+2026-04-22 21:38:01 [INFO]       [2] William Miller (ID: ) 
+2026-04-22 21:38:01 [INFO]       [3] Rohit Singh (ID: ) 
+2026-04-22 21:38:01 [INFO]       [4] Patricia Thomas (ID: ) 
+2026-04-22 21:38:01 [INFO]   ================================================================================
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   [OK] Log saved: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-23_03-00-06/phase2_run.log
+2026-04-22 21:38:01 [INFO]   [INFO] Job 0bfb98a0 marked COMPLETE
+2026-04-22 21:38:01 [INFO]   .
+2026-04-22 21:38:01 [INFO]   
+2026-04-22 21:38:01 [INFO]   ======================== 1 passed in 472.45s (0:07:52) =========================
+2026-04-22 21:38:01 [INFO] Phase 2 pytest PASSED
+2026-04-22 21:38:01 [INFO]   Renamed: payroll_paycheck_2026-04-16_to_2026-04-22.pdf → paycheck_thursday.pdf
+2026-04-22 21:38:01 [INFO]   Renamed: cash_requirement_2026-04-16_to_2026-04-22.pdf → cash_requirement_thursday.pdf
+2026-04-22 21:38:01 [INFO]   Renamed: paystub_2026-04-16_to_2026-04-22.pdf → paystub_thursday.pdf
+2026-04-22 21:38:01 [INFO] Run folder renamed to: /home/ubuntu/payroll_phase2/data-driven-files/timesheets/downloads/2026-04-16_to_2026-04-22
+2026-04-22 21:38:01 [INFO] Uploading PDFs to Google Drive...
+2026-04-22 21:38:07 [INFO]   Uploaded to Drive: cash_requirement_thursday.pdf
+2026-04-22 21:38:10 [INFO]   Uploaded to Drive: paycheck_thursday.pdf
+2026-04-22 21:38:13 [INFO]   Uploaded to Drive: paystub_thursday.pdf
+2026-04-22 21:38:13 [INFO] PDFs uploaded to Drive: Payroll_Automation/Thursday/Output/2026-04-16_to_2026-04-22/
+2026-04-22 21:38:13 [INFO] Loading current week paystub from Drive...
+2026-04-22 21:38:13 [INFO] Current paystub loaded from local: paystub_thursday.pdf
+2026-04-22 21:38:13 [INFO] Looking for previous week paystub (7 days back)...
+2026-04-22 21:38:16 [INFO] Previous paystub found.
+2026-04-22 21:38:16 [INFO] Generating QA report via Claude API...
+[OK] Report saved: /tmp/tmphe26izax.docx
+2026-04-22 21:38:30 [INFO] Report generated successfully.
+2026-04-22 21:38:32 [INFO] Report sent to Slack: payroll_report_thursday_20260423.docx
+2026-04-22 21:38:32 [INFO] Phase 2 scheduler completed successfully.

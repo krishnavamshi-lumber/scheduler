@@ -322,3 +322,65 @@ def find_previous_week_paystub(
 
     except Exception as e:
         return None, f"Drive error finding previous paystub: {e}"
+
+
+def _find_previous_week_output_folder(
+    company_day: str,
+    current_period_folder: str,
+) -> tuple[Optional[dict], Optional[str]]:
+    """Return the previous week's Output folder info or an error message."""
+    try:
+        start_str = current_period_folder.split("_to_")[0]
+        current_start = date.fromisoformat(start_str)
+        target_start  = current_start - timedelta(days=7)
+        target_prefix = target_start.strftime("%Y-%m-%d")
+    except Exception as e:
+        return None, f"Could not parse period folder name '{current_period_folder}': {e}"
+
+    svc, err = gdrive_service()
+    if err:
+        return None, err
+
+    try:
+        root  = find_folder(svc, GDRIVE_ROOT)
+        day_f = find_folder(svc, company_day, root)
+        out_f = find_folder(svc, "Output", day_f)
+        if not out_f:
+            return None, "No Output folder found."
+
+        subfolders = list_subfolders(svc, out_f)
+        matched = next(
+            (f for f in subfolders if f["name"].startswith(target_prefix)),
+            None,
+        )
+        if not matched:
+            return None, f"No folder starting with '{target_prefix}' found — no previous period."
+
+        return matched, None
+    except Exception as e:
+        return None, f"Drive error finding previous week folder: {e}"
+
+
+def find_previous_week_union_report(
+    company_day: str,
+    current_period_folder: str,
+    union_name: str,
+) -> tuple[Optional[bytes], Optional[str]]:
+    """Find the previous week's union_report_<union_name>.pdf in Drive."""
+    prev_folder, err = _find_previous_week_output_folder(company_day, current_period_folder)
+    if err:
+        return None, err
+
+    svc, err = gdrive_service()
+    if err:
+        return None, err
+
+    try:
+        fname = f"union_report_{union_name}.pdf"
+        fid   = find_file(svc, fname, prev_folder["id"])
+        if not fid:
+            return None, f"'{fname}' not found in previous period folder '{prev_folder['name']}'."
+
+        return download_file(svc, fid), None
+    except Exception as e:
+        return None, f"Drive error finding previous union report: {e}"

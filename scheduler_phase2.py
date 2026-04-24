@@ -33,7 +33,7 @@ import os
 import subprocess
 import sys
 import tempfile
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from pathlib import Path
 
 from scheduler_utils import (
@@ -46,6 +46,7 @@ from scheduler_utils import (
     fetch_excel_from_drive,
     find_paystub_for_period,
     find_previous_week_paystub,
+    find_previous_week_union_report,
     gdrive_service,
     find_folder,
     find_file,
@@ -242,6 +243,43 @@ def upload_union_reports_to_drive(
         return f"Union Drive upload error: {e}"
 
 
+def _load_current_union_report_paths(run_folder: Path, union_names: list[str]) -> dict[str, str]:
+    current_paths: dict[str, str] = {}
+    for union_name in union_names:
+        fname = f"union_report_{union_name}.pdf"
+        fpath = run_folder / fname
+        if fpath.exists():
+            current_paths[union_name] = str(fpath)
+        else:
+            logger.warning(f"Current union report missing locally: {fname}")
+    return current_paths
+
+
+def _load_previous_union_reports(
+    company_day: str,
+    current_period_folder: str,
+    union_names: list[str],
+) -> dict[str, str]:
+    previous_paths: dict[str, str] = {}
+    for union_name in union_names:
+        data, err = find_previous_week_union_report(company_day, current_period_folder, union_name)
+        if data:
+            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+                tmp.write(data)
+                previous_paths[union_name] = tmp.name
+        else:
+            logger.warning(f"Previous union report not found for '{union_name}': {err}")
+    return previous_paths
+
+
+def _cleanup_temp_files(paths: list[str]) -> None:
+    for path in paths:
+        try:
+            os.unlink(path)
+        except Exception:
+            pass
+
+
 def get_period_folder_name(run_folder: Path) -> str | None:
     ps = run_folder / "period_suffix.txt"
     if ps.exists():
@@ -304,6 +342,44 @@ def generate_report(
                     os.unlink(p)
                 except Exception:
                     pass
+
+
+def generate_union_report_docx(
+    current_union_paths: dict[str, str],
+    previous_union_paths: dict[str, str],
+    company_day: str,
+    current_period: str,
+    previous_period: str | None,
+) -> bytes | None:
+    phase1_str = str(PHASE1_DIR)
+    if phase1_str not in sys.path:
+        sys.path.insert(0, phase1_str)
+
+    docx_path = None
+    try:
+        from generate_report import generate_union_report
+
+        with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as f3:
+            docx_path = f3.name
+
+        generate_union_report(
+            current_union_paths,
+            previous_union_paths,
+            company_day,
+            current_period,
+            previous_period,
+            docx_path,
+        )
+        return Path(docx_path).read_bytes()
+    except Exception as e:
+        logger.error(f"Union report generation failed: {e}")
+        return None
+    finally:
+        if docx_path:
+            try:
+                os.unlink(docx_path)
+            except Exception:
+                pass
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -440,6 +516,7 @@ def main():
     # ── Upload union reports to Google Drive ──────────────────────────────────
     union_names_file = run_folder / "union_names.json"
     union_skipped    = run_folder / "union_skipped.txt"
+    union_names: list[str] = []
 
     if union_skipped.exists():
         # Test reported no unions for this company — skip silently
@@ -575,6 +652,53 @@ def main():
             comment="Report generation failed — sending run log instead.",
             logger=logger,
         )
+
+    # ── Union report comparison (if union reports were downloaded) ─────────────
+    if union_names_file.exists() and union_names:
+        current_union_paths = _load_current_union_report_paths(run_folder, union_names)
+        if current_union_paths:
+            previous_union_paths = _load_previous_union_reports(
+                company_day,
+                period_folder_name,
+                union_names,
+            )
+
+            current_period_label = f"{job.get('pay_period_start','Unknown')} – {job.get('pay_period_end','Unknown')}"
+            previous_period_label = None
+            if prev_pdf_bytes:
+                try:
+                    prev_start = date.fromisoformat(job['pay_period_start']) - timedelta(days=7)
+                    prev_end = date.fromisoformat(job['pay_period_end']) - timedelta(days=7)
+                    previous_period_label = f"{prev_start.strftime('%B %d, %Y')} – {prev_end.strftime('%B %d, %Y')}"
+                except Exception:
+                    previous_period_label = None
+
+            logger.info("Generating union report comparison via Claude API...")
+            union_docx_bytes = generate_union_report_docx(
+                current_union_paths,
+                previous_union_paths,
+                company_day,
+                current_period_label,
+                previous_period_label,
+            )
+
+            if union_docx_bytes:
+                union_fname = (
+                    f"union_comparison_report_{company_day.lower()}_"
+                    f"{datetime.now(IST).strftime('%Y%m%d')}.docx"
+                )
+                slack_upload_file(
+                    content=union_docx_bytes,
+                    filename=union_fname,
+                    title=f"Union Comparison Report — {company_day} — {report_date}",
+                    comment=f"Automated union report comparison for *{company_day}* — {report_date}",
+                    logger=logger,
+                )
+                logger.info(f"Union report comparison sent to Slack: {union_fname}")
+            else:
+                logger.warning("Union report comparison could not be generated.")
+        else:
+            logger.info("No current union PDF files found locally — skipping union comparison.")
 
     logger.info("Phase 2 scheduler completed successfully.")
 

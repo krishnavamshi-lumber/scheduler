@@ -46,7 +46,8 @@ from scheduler_utils import (
     fetch_excel_from_drive,
     find_paystub_for_period,
     find_previous_week_paystub,
-    find_previous_week_union_report,
+    find_previous_week_401k_report,
+    find_previous_week_prevailing_wage_report,
     gdrive_service,
     find_folder,
     find_file,
@@ -243,41 +244,30 @@ def upload_union_reports_to_drive(
         return f"Union Drive upload error: {e}"
 
 
-def _load_current_union_report_paths(run_folder: Path, union_names: list[str]) -> dict[str, str]:
-    current_paths: dict[str, str] = {}
-    for union_name in union_names:
-        fname = f"union_report_{union_name}.pdf"
-        fpath = run_folder / fname
-        if fpath.exists():
-            current_paths[union_name] = str(fpath)
-        else:
-            logger.warning(f"Current union report missing locally: {fname}")
-    return current_paths
-
-
-def _load_previous_union_reports(
+def _find_previous_union_xlsx(
     company_day: str,
     current_period_folder: str,
-    union_names: list[str],
-) -> dict[str, str]:
-    previous_paths: dict[str, str] = {}
-    for union_name in union_names:
-        data, err = find_previous_week_union_report(company_day, current_period_folder, union_name)
-        if data:
-            with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
-                tmp.write(data)
-                previous_paths[union_name] = tmp.name
-        else:
-            logger.warning(f"Previous union report not found for '{union_name}': {err}")
-    return previous_paths
+    union_name: str,
+) -> tuple[bytes | None, str | None]:
+    """Download the previous week's union report XLSX from Drive."""
+    from scheduler_utils import _find_previous_week_output_folder
 
+    prev_folder, err = _find_previous_week_output_folder(company_day, current_period_folder)
+    if err:
+        return None, err
 
-def _cleanup_temp_files(paths: list[str]) -> None:
-    for path in paths:
-        try:
-            os.unlink(path)
-        except Exception:
-            pass
+    svc, svc_err = gdrive_service()
+    if svc_err:
+        return None, svc_err
+
+    try:
+        fname = f"union_report_{union_name}.xlsx"
+        fid   = find_file(svc, fname, prev_folder["id"])
+        if not fid:
+            return None, f"'{fname}' not found in previous period folder '{prev_folder['name']}'."
+        return download_file(svc, fid), None
+    except Exception as e:
+        return None, f"Drive error finding previous union XLSX: {e}"
 
 
 def get_period_folder_name(run_folder: Path) -> str | None:
@@ -344,42 +334,191 @@ def generate_report(
                     pass
 
 
-def generate_union_report_docx(
-    current_union_paths: dict[str, str],
-    previous_union_paths: dict[str, str],
+def upload_prevailing_wage_reports_to_drive(
     company_day: str,
+    period_folder: str,
+    run_folder: Path,
+    project_names: list[str],
+) -> str | None:
+    """
+    Upload prevailing wage PDFs and CSV files to
+    Payroll_Automation/<Day>/Output/<period_folder>/.
+    Handles: _federal.pdf, _CPR.pdf, _LCP_Tracker.csv for each project.
+    Returns error string or None on success.
+    """
+    if not project_names:
+        logger.info("No prevailing wage projects to upload — skipping.")
+        return None
+
+    svc, err = gdrive_service()
+    if err:
+        return err
+
+    try:
+        root  = _get_or_create_drive_folder(svc, GDRIVE_ROOT)
+        day_f = _get_or_create_drive_folder(svc, company_day, root)
+        out_f = _get_or_create_drive_folder(svc, "Output", day_f)
+        per_f = _get_or_create_drive_folder(svc, period_folder, out_f)
+
+        uploaded = []
+        for project_name in project_names:
+            for suffix, mime in [
+                ("_federal.pdf",     "application/pdf"),
+                ("_CPR.pdf",         "application/pdf"),
+                ("_LCP_Tracker.csv", "text/csv"),
+            ]:
+                fpath = run_folder / f"prevailing_wage_{project_name}{suffix}"
+                if fpath.exists():
+                    _upload_file_to_drive(svc, fpath, per_f, mime)
+                    uploaded.append(fpath.name)
+                else:
+                    logger.warning(f"  Prevailing wage file not found locally: {fpath.name}")
+
+        logger.info(f"Prevailing wage reports uploaded: {uploaded}")
+        return None
+    except Exception as e:
+        return f"Prevailing wage Drive upload error: {e}"
+
+
+def _load_current_prevailing_wage_paths(
+    run_folder: Path,
+    project_names: list[str],
+) -> dict[str, dict[str, bytes]]:
+    """Return {project_name: {"federal": bytes, "CPR": bytes, "lcp": bytes}} for files found locally."""
+    result: dict[str, dict[str, bytes]] = {}
+    for project_name in project_names:
+        entry: dict[str, bytes] = {}
+        for report_type, filename in [
+            ("federal", f"prevailing_wage_{project_name}_federal.pdf"),
+            ("CPR",     f"prevailing_wage_{project_name}_CPR.pdf"),
+            ("lcp",     f"prevailing_wage_{project_name}_LCP_Tracker.csv"),
+        ]:
+            fpath = run_folder / filename
+            if fpath.exists():
+                entry[report_type] = fpath.read_bytes()
+            else:
+                logger.warning(f"Current prevailing wage file missing locally: {filename}")
+        if entry:
+            result[project_name] = entry
+    return result
+
+
+def _load_previous_prevailing_wage_reports(
+    company_day: str,
+    current_period_folder: str,
+    project_names: list[str],
+) -> dict[str, dict[str, bytes]]:
+    """Download previous week's prevailing wage PDFs and LCP CSV from Drive."""
+    result: dict[str, dict[str, bytes]] = {}
+    for project_name in project_names:
+        entry: dict[str, bytes] = {}
+        for report_type in ("federal", "CPR"):
+            data, err = find_previous_week_prevailing_wage_report(
+                company_day, current_period_folder, project_name, report_type
+            )
+            if data:
+                entry[report_type] = data
+            else:
+                logger.warning(
+                    f"Previous prevailing wage report not found for "
+                    f"'{project_name}' ({report_type}): {err}"
+                )
+        # LCP Tracker CSV uses the same Drive folder lookup
+        lcp_data, lcp_err = _find_previous_prevailing_wage_csv(
+            company_day, current_period_folder, project_name
+        )
+        if lcp_data:
+            entry["lcp"] = lcp_data
+        else:
+            logger.warning(
+                f"Previous LCP Tracker CSV not found for '{project_name}': {lcp_err}"
+            )
+        if entry:
+            result[project_name] = entry
+    return result
+
+
+def _find_previous_prevailing_wage_csv(
+    company_day: str,
+    current_period_folder: str,
+    project_name: str,
+) -> tuple[bytes | None, str | None]:
+    """Download the previous week's LCP Tracker CSV from Drive."""
+    from scheduler_utils import _find_previous_week_output_folder
+
+    prev_folder, err = _find_previous_week_output_folder(company_day, current_period_folder)
+    if err:
+        return None, err
+
+    svc, err = gdrive_service()
+    if err:
+        return None, err
+
+    try:
+        fname = f"prevailing_wage_{project_name}_LCP_Tracker.csv"
+        fid   = find_file(svc, fname, prev_folder["id"])
+        if not fid:
+            return None, f"'{fname}' not found in previous period folder '{prev_folder['name']}'."
+        return download_file(svc, fid), None
+    except Exception as e:
+        return None, f"Drive error finding previous LCP Tracker CSV: {e}"
+
+
+def generate_prevailing_wage_diff_pdf(
+    project_name: str,
+    report_type: str,
+    previous_pdf_bytes: bytes,
+    current_pdf_bytes: bytes,
     current_period: str,
     previous_period: str | None,
 ) -> bytes | None:
+    """Generate a diff PDF for one prevailing wage report using prevailing_wage_validator."""
     phase1_str = str(PHASE1_DIR)
     if phase1_str not in sys.path:
         sys.path.insert(0, phase1_str)
 
-    docx_path = None
     try:
-        from generate_report import generate_union_report
+        from prevailing_wage_validator import compare_prevailing_wage_pdfs
 
-        with tempfile.NamedTemporaryFile(suffix=".docx", delete=False) as f3:
-            docx_path = f3.name
-
-        generate_union_report(
-            current_union_paths,
-            previous_union_paths,
-            company_day,
-            current_period,
-            previous_period,
-            docx_path,
+        return compare_prevailing_wage_pdfs(
+            previous_pdf_bytes=previous_pdf_bytes,
+            current_pdf_bytes=current_pdf_bytes,
+            project_name=project_name,
+            report_type=report_type,
+            previous_label=previous_period or "Previous",
+            current_label=current_period or "Current",
         )
-        return Path(docx_path).read_bytes()
     except Exception as e:
-        logger.error(f"Union report generation failed: {e}")
+        logger.error(
+            f"Prevailing wage diff generation failed for {project_name} ({report_type}): {e}"
+        )
         return None
-    finally:
-        if docx_path:
-            try:
-                os.unlink(docx_path)
-            except Exception:
-                pass
+
+
+def generate_lcp_tracker_diff_xlsx(
+    project_name: str,
+    previous_csv_bytes: bytes,
+    current_csv_bytes: bytes,
+    current_period: str,
+    previous_period: str | None,
+) -> bytes | None:
+    """Generate a highlighted Excel diff for one LCP Tracker CSV using prevailing_wage_validator."""
+    phase1_str = str(PHASE1_DIR)
+    if phase1_str not in sys.path:
+        sys.path.insert(0, phase1_str)
+
+    try:
+        from prevailing_wage_validator import compare_lcp_tracker_csvs
+
+        return compare_lcp_tracker_csvs(
+            previous_csv_bytes=previous_csv_bytes,
+            current_csv_bytes=current_csv_bytes,
+            previous_label=previous_period or "Previous",
+            current_label=current_period or "Current",
+        )
+    except Exception as e:
+        logger.error(f"LCP Tracker diff generation failed for {project_name}: {e}")
+        return None
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -551,6 +690,145 @@ def main():
     else:
         logger.info("No union_names.json found — union step may not have run.")
 
+    # ── Upload prevailing wage reports (PDFs + LCP Tracker CSV) ──────────────
+    pw_projects_file_early = run_folder / "prevailing_wage_projects.json"
+    pw_project_names_early: list[str] = []
+
+    if pw_projects_file_early.exists():
+        try:
+            pw_project_names_early = json.loads(pw_projects_file_early.read_text(encoding="utf-8"))
+        except Exception:
+            pw_project_names_early = []
+
+        if pw_project_names_early:
+            logger.info(f"Uploading prevailing wage reports to Drive: {pw_project_names_early}")
+            pw_upload_err_early = upload_prevailing_wage_reports_to_drive(
+                company_day, period_folder_name, run_folder, pw_project_names_early
+            )
+            if pw_upload_err_early:
+                logger.error(f"Prevailing wage Drive upload failed: {pw_upload_err_early}")
+                slack_message(
+                    f"⚠️ *Phase 2 — Prevailing Wage Upload Failed*\n"
+                    f"*Company:* {company_day}\n"
+                    f"*Error:* {pw_upload_err_early}",
+                    logger,
+                )
+            else:
+                logger.info(
+                    f"Prevailing wage reports uploaded: "
+                    f"{GDRIVE_ROOT}/{company_day}/Output/{period_folder_name}/"
+                )
+        else:
+            logger.info("prevailing_wage_projects.json is empty — no prevailing wage reports to upload.")
+    else:
+        logger.info("No prevailing_wage_projects.json found — prevailing wage step may not have run.")
+
+    # ── Upload 401k report + compare with previous week ──────────────────────
+    _401k_skipped = run_folder / "401k_skipped.txt"
+
+    # Accept CSV (primary) or xlsx (fallback)
+    _401k_file: Path | None = None
+    for _401k_candidate in (
+        run_folder / "401K_report.csv",
+        run_folder / "401k_report.csv",
+        run_folder / "401K_report.xlsx",
+    ):
+        if _401k_candidate.exists():
+            _401k_file = _401k_candidate
+            break
+
+    if _401k_skipped.exists():
+        logger.info(f"401k report skipped: {_401k_skipped.read_text().strip()}")
+    elif _401k_file is not None:
+        is_csv = _401k_file.suffix.lower() == ".csv"
+        mime_401k = (
+            "text/csv"
+            if is_csv
+            else "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+
+        logger.info(f"Uploading 401k report to Drive: {_401k_file.name}")
+        svc_401k, err_401k = gdrive_service()
+        if err_401k:
+            logger.error(f"401k Drive upload failed (auth): {err_401k}")
+        else:
+            try:
+                root_401k = _get_or_create_drive_folder(svc_401k, GDRIVE_ROOT)
+                day_401k  = _get_or_create_drive_folder(svc_401k, company_day, root_401k)
+                out_401k  = _get_or_create_drive_folder(svc_401k, "Output", day_401k)
+                per_401k  = _get_or_create_drive_folder(svc_401k, period_folder_name, out_401k)
+                _upload_file_to_drive(svc_401k, _401k_file, per_401k, mime_401k)
+                logger.info(
+                    f"401k report uploaded: "
+                    f"{GDRIVE_ROOT}/{company_day}/Output/{period_folder_name}/{_401k_file.name}"
+                )
+            except Exception as e:
+                logger.error(f"401k Drive upload failed: {e}")
+
+        # Compare with previous week only when current file is CSV
+        if is_csv:
+            logger.info("Looking for previous week 401k report for comparison...")
+            prev_401k_bytes, prev_401k_err = find_previous_week_401k_report(
+                company_day, period_folder_name
+            )
+
+            if prev_401k_err:
+                logger.warning(f"Previous 401k report not available: {prev_401k_err}")
+                slack_message(
+                    f"ℹ️ *401k Report — No Previous CSV*\n"
+                    f"*Company:* {company_day}\n"
+                    f"No previous 401k report found — skipping comparison.",
+                    logger,
+                )
+            else:
+                logger.info("Generating 401k diff Excel...")
+                try:
+                    phase1_str = str(PHASE1_DIR)
+                    if phase1_str not in sys.path:
+                        sys.path.insert(0, phase1_str)
+                    from report_401k_validator import compare_401k_reports
+
+                    _401k_curr_period = (
+                        f"{job.get('pay_period_start', 'Unknown')} to "
+                        f"{job.get('pay_period_end', 'Unknown')}"
+                    )
+                    try:
+                        _401k_ps = date.fromisoformat(job["pay_period_start"]) - timedelta(days=7)
+                        _401k_pe = date.fromisoformat(job["pay_period_end"])   - timedelta(days=7)
+                        _401k_prev_period = (
+                            f"{_401k_ps.strftime('%Y-%m-%d')} to {_401k_pe.strftime('%Y-%m-%d')}"
+                        )
+                    except Exception:
+                        _401k_prev_period = "Previous"
+
+                    diff_401k_bytes = compare_401k_reports(
+                        previous_csv_bytes=prev_401k_bytes,
+                        current_csv_bytes=_401k_file.read_bytes(),
+                        previous_label=_401k_prev_period,
+                        current_label=_401k_curr_period,
+                    )
+                    diff_401k_fname = (
+                        f"401k_diff_{company_day.lower()}_"
+                        f"{datetime.now(IST).strftime('%Y%m%d')}.xlsx"
+                    )
+                    _401k_date = datetime.now(IST).strftime("%B %d, %Y")
+                    slack_upload_file(
+                        content=diff_401k_bytes,
+                        filename=diff_401k_fname,
+                        title=f"401k Report Diff — {company_day} — {_401k_date}",
+                        comment=(
+                            f"401k CSV comparison for *{company_day}* — {_401k_date}\n"
+                            f"Current: {_401k_curr_period}  |  Previous: {_401k_prev_period}"
+                        ),
+                        logger=logger,
+                    )
+                    logger.info(f"401k diff sent to Slack: {diff_401k_fname}")
+
+                except Exception as e:
+                    logger.error(f"401k diff generation failed: {e}")
+    else:
+        logger.info("No 401k report file found — 401k step may not have run.")
+
     # ── If Phase 2 failed partially, alert and stop here ─────────────────────
     if not success:
         alert_failure("Phase 2", company_day, LOG_NAME, output[-1000:], logger)
@@ -653,52 +931,196 @@ def main():
             logger=logger,
         )
 
-    # ── Union report comparison (if union reports were downloaded) ─────────────
+    # ── Union report Excel diff ────────────────────────────────────────────────
     if union_names_file.exists() and union_names:
-        current_union_paths = _load_current_union_report_paths(run_folder, union_names)
-        if current_union_paths:
-            previous_union_paths = _load_previous_union_reports(
-                company_day,
-                period_folder_name,
-                union_names,
+        curr_union_files = []
+        for _uname in union_names:
+            _xlsx = run_folder / f"union_report_{_uname}.xlsx"
+            if _xlsx.exists():
+                curr_union_files.append((_uname, _xlsx.read_bytes()))
+            else:
+                logger.warning(f"Current union XLSX not found locally: {_xlsx.name}")
+
+        if curr_union_files:
+            prev_union_files = []
+            for _uname in union_names:
+                _udata, _uerr = _find_previous_union_xlsx(company_day, period_folder_name, _uname)
+                if _udata:
+                    prev_union_files.append((_uname, _udata))
+                else:
+                    logger.warning(f"Previous union XLSX not found for '{_uname}': {_uerr}")
+
+            _union_curr_period = (
+                f"{job.get('pay_period_start', 'Unknown')} to {job.get('pay_period_end', 'Unknown')}"
             )
+            _union_prev_period: str | None = None
+            try:
+                _us = date.fromisoformat(job["pay_period_start"]) - timedelta(days=7)
+                _ue = date.fromisoformat(job["pay_period_end"])   - timedelta(days=7)
+                _union_prev_period = f"{_us.strftime('%Y-%m-%d')} to {_ue.strftime('%Y-%m-%d')}"
+            except Exception:
+                pass
 
-            current_period_label = f"{job.get('pay_period_start','Unknown')} – {job.get('pay_period_end','Unknown')}"
-            previous_period_label = None
-            if prev_pdf_bytes:
-                try:
-                    prev_start = date.fromisoformat(job['pay_period_start']) - timedelta(days=7)
-                    prev_end = date.fromisoformat(job['pay_period_end']) - timedelta(days=7)
-                    previous_period_label = f"{prev_start.strftime('%B %d, %Y')} – {prev_end.strftime('%B %d, %Y')}"
-                except Exception:
-                    previous_period_label = None
+            logger.info("Generating union report Excel diff...")
+            try:
+                phase1_str = str(PHASE1_DIR)
+                if phase1_str not in sys.path:
+                    sys.path.insert(0, phase1_str)
+                from union_report_validator import compare_union_report_files
 
-            logger.info("Generating union report comparison via Claude API...")
-            union_docx_bytes = generate_union_report_docx(
-                current_union_paths,
-                previous_union_paths,
-                company_day,
-                current_period_label,
-                previous_period_label,
-            )
-
-            if union_docx_bytes:
-                union_fname = (
-                    f"union_comparison_report_{company_day.lower()}_"
-                    f"{datetime.now(IST).strftime('%Y%m%d')}.docx"
+                diff_union_bytes = compare_union_report_files(
+                    previous_files=prev_union_files,
+                    current_files=curr_union_files,
+                    previous_label=_union_prev_period or "Previous",
+                    current_label=_union_curr_period,
+                )
+                union_diff_fname = (
+                    f"union_diff_{company_day.lower()}_"
+                    f"{datetime.now(IST).strftime('%Y%m%d')}.xlsx"
                 )
                 slack_upload_file(
-                    content=union_docx_bytes,
-                    filename=union_fname,
-                    title=f"Union Comparison Report — {company_day} — {report_date}",
-                    comment=f"Automated union report comparison for *{company_day}* — {report_date}",
+                    content=diff_union_bytes,
+                    filename=union_diff_fname,
+                    title=f"Union Report Diff — {company_day} — {report_date}",
+                    comment=(
+                        f"Union report comparison for *{company_day}* — {report_date}\n"
+                        f"Current: {_union_curr_period}  |  Previous: {_union_prev_period or 'N/A'}"
+                    ),
                     logger=logger,
                 )
-                logger.info(f"Union report comparison sent to Slack: {union_fname}")
-            else:
-                logger.warning("Union report comparison could not be generated.")
+                logger.info(f"Union diff sent to Slack: {union_diff_fname}")
+            except Exception as e:
+                logger.error(f"Union diff generation failed: {e}")
         else:
-            logger.info("No current union PDF files found locally — skipping union comparison.")
+            logger.info("No current union XLSX files found locally — skipping union diff.")
+
+    # ── Prevailing wage PDF comparison ────────────────────────────────────────
+    pw_projects_file = run_folder / "prevailing_wage_projects.json"
+    pw_project_names = pw_project_names_early  # already loaded and uploaded above
+
+    if pw_projects_file.exists() and pw_project_names:
+        current_pw_paths = _load_current_prevailing_wage_paths(run_folder, pw_project_names)
+        if current_pw_paths:
+            previous_pw_data = _load_previous_prevailing_wage_reports(
+                company_day, period_folder_name, pw_project_names
+            )
+
+            _pw_curr_period = (
+                f"{job.get('pay_period_start', 'Unknown')} to {job.get('pay_period_end', 'Unknown')}"
+            )
+            _pw_prev_period: str | None = None
+            try:
+                _ps = date.fromisoformat(job["pay_period_start"]) - timedelta(days=7)
+                _pe = date.fromisoformat(job["pay_period_end"])   - timedelta(days=7)
+                _pw_prev_period = f"{_ps.strftime('%Y-%m-%d')} to {_pe.strftime('%Y-%m-%d')}"
+            except Exception:
+                pass
+
+            for project_name in pw_project_names:
+                curr_entry = current_pw_paths.get(project_name, {})
+                prev_entry = previous_pw_data.get(project_name, {})
+
+                # PDF diffs — federal and CPR
+                for report_type in ("federal", "CPR"):
+                    curr_bytes = curr_entry.get(report_type)
+                    if curr_bytes is None:
+                        continue
+
+                    prev_bytes = prev_entry.get(report_type)
+                    if prev_bytes is None:
+                        slack_message(
+                            f"ℹ️ *Prevailing Wage — No Previous Report*\n"
+                            f"*Company:* {company_day}  |  *Project:* {project_name}  |  *Type:* {report_type}\n"
+                            f"No previous report found for this period — skipping comparison.",
+                            logger,
+                        )
+                        logger.info(
+                            f"No previous prevailing wage {report_type} report for "
+                            f"'{project_name}' — skipping diff."
+                        )
+                        continue
+
+                    logger.info(
+                        f"Generating prevailing wage diff: {project_name} ({report_type})"
+                    )
+                    diff_bytes = generate_prevailing_wage_diff_pdf(
+                        project_name, report_type,
+                        prev_bytes, curr_bytes,
+                        _pw_curr_period, _pw_prev_period,
+                    )
+
+                    if diff_bytes:
+                        diff_fname = (
+                            f"prevailing_wage_diff_{project_name}_{report_type}_"
+                            f"{company_day.lower()}_{datetime.now(IST).strftime('%Y%m%d')}.pdf"
+                        )
+                        slack_upload_file(
+                            content=diff_bytes,
+                            filename=diff_fname,
+                            title=(
+                                f"Prevailing Wage Diff — {project_name} ({report_type}) "
+                                f"— {company_day} — {report_date}"
+                            ),
+                            comment=(
+                                f"Prevailing wage PDF comparison for *{project_name}* ({report_type}) "
+                                f"— *{company_day}* — {report_date}"
+                            ),
+                            logger=logger,
+                        )
+                        logger.info(f"Prevailing wage diff sent to Slack: {diff_fname}")
+                    else:
+                        logger.warning(
+                            f"Prevailing wage diff generation failed: {project_name} ({report_type})"
+                        )
+
+                # LCP Tracker CSV diff
+                curr_lcp = curr_entry.get("lcp")
+                if curr_lcp is not None:
+                    prev_lcp = prev_entry.get("lcp")
+                    if prev_lcp is None:
+                        slack_message(
+                            f"ℹ️ *Prevailing Wage — No Previous LCP Tracker*\n"
+                            f"*Company:* {company_day}  |  *Project:* {project_name}\n"
+                            f"No previous LCP Tracker CSV found — skipping comparison.",
+                            logger,
+                        )
+                        logger.info(
+                            f"No previous LCP Tracker CSV for '{project_name}' — skipping diff."
+                        )
+                    else:
+                        logger.info(f"Generating LCP Tracker diff: {project_name}")
+                        lcp_xlsx_bytes = generate_lcp_tracker_diff_xlsx(
+                            project_name, prev_lcp, curr_lcp,
+                            _pw_curr_period, _pw_prev_period,
+                        )
+
+                        if lcp_xlsx_bytes:
+                            lcp_fname = (
+                                f"lcp_tracker_diff_{project_name}_"
+                                f"{company_day.lower()}_{datetime.now(IST).strftime('%Y%m%d')}.xlsx"
+                            )
+                            slack_upload_file(
+                                content=lcp_xlsx_bytes,
+                                filename=lcp_fname,
+                                title=(
+                                    f"LCP Tracker Diff — {project_name} "
+                                    f"— {company_day} — {report_date}"
+                                ),
+                                comment=(
+                                    f"LCP Tracker CSV comparison for *{project_name}* "
+                                    f"— *{company_day}* — {report_date}"
+                                ),
+                                logger=logger,
+                            )
+                            logger.info(f"LCP Tracker diff sent to Slack: {lcp_fname}")
+                        else:
+                            logger.warning(
+                                f"LCP Tracker diff generation failed: {project_name}"
+                            )
+        else:
+            logger.info(
+                "No current prevailing wage PDF files found locally — skipping diff."
+            )
 
     logger.info("Phase 2 scheduler completed successfully.")
 

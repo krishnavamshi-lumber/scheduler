@@ -384,3 +384,57 @@ def find_previous_week_union_report(
         return download_file(svc, fid), None
     except Exception as e:
         return None, f"Drive error finding previous union report: {e}"
+
+
+def find_previous_week_401k_report(
+    company_day: str,
+    current_period_folder: str,
+) -> tuple[Optional[bytes], Optional[str]]:
+    """Find the previous week's 401k CSV (or xlsx fallback) in Drive."""
+    prev_folder, err = _find_previous_week_output_folder(company_day, current_period_folder)
+    if err:
+        return None, err
+
+    svc, err = gdrive_service()
+    if err:
+        return None, err
+
+    try:
+        for fname in ("401K_report.csv", "401k_report.csv", "401K_report.xlsx"):
+            fid = find_file(svc, fname, prev_folder["id"])
+            if fid:
+                return download_file(svc, fid), None
+        return None, f"No 401k report found in previous period folder '{prev_folder['name']}'."
+    except Exception as e:
+        return None, f"Drive error finding previous 401k report: {e}"
+
+
+def find_previous_week_prevailing_wage_report(
+    company_day: str,
+    current_period_folder: str,
+    project_name: str,
+    report_type: str,
+) -> tuple[Optional[bytes], Optional[str]]:
+    """Find the previous week's prevailing_wage_<project_name>_<report_type>.pdf in Drive.
+
+    Args:
+        project_name: Sanitized project name (as stored in prevailing_wage_projects.json).
+        report_type:  "federal" or "CPR".
+    """
+    prev_folder, err = _find_previous_week_output_folder(company_day, current_period_folder)
+    if err:
+        return None, err
+
+    svc, err = gdrive_service()
+    if err:
+        return None, err
+
+    try:
+        fname = f"prevailing_wage_{project_name}_{report_type}.pdf"
+        fid   = find_file(svc, fname, prev_folder["id"])
+        if not fid:
+            return None, f"'{fname}' not found in previous period folder '{prev_folder['name']}'."
+
+        return download_file(svc, fid), None
+    except Exception as e:
+        return None, f"Drive error finding previous prevailing wage report: {e}"
